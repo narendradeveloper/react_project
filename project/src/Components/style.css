@@ -1,0 +1,65 @@
+.body{
+    padding: 0;
+    margin: 0;
+    
+}
+#header{
+   display: grid;
+    justify-content: center;
+    padding-top: 15vh;
+}
+input{
+    height: 5vh;
+    width: 60vh;
+    color: rgb(8, 8, 8);
+    font-size:large;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    
+}
+#sub{
+background-color:#6979d4;
+border: none;
+height: 7vh;
+width: 61.5vh;
+margin-top: 3vh;
+cursor: pointer;
+font-size:larger;
+font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif ;
+}
+#sub:hover{
+    opacity: 0.8;
+}
+h1{
+    text-align: center;
+}
+#firstheader{
+background-color: blue;
+border: 2px solid black;
+height: 50vh;
+width: 60vh;
+justify-content: center;
+padding-top: 5vh;
+}
+#Homefooter{
+    color: rgb(224, 224, 231);
+    font-size:larger;
+    cursor: pointer;
+
+}
+#p1:hover{
+    color: black;
+    zoom: 1vh;
+
+}
+#p2:hover{
+    color: black;
+    zoom: 1vh;
+}
+#p3:hover{
+    color: black;
+    zoom: 1vh;
+}
+#p4:hover{
+    color: black;
+    zoom: 1vh;
+}
