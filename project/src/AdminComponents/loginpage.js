@@ -1,5 +1,5 @@
-// import React from "react";
 import "./style.css";
+
 import img from "./Image.png"
 
 import React, { useState } from "react";
@@ -27,15 +27,17 @@ const Login = () => {
     );
     if (isvalid) {
       setMessage(`Welcome, ${username}! Login successful.`);
-      alert(`Welcome, ${username}! Login successful.`)
+      // alert(`Welcome, ${username}! Login successful.`)
       setTimeout(() => {
         navigate("/home");
       }, 1500);
     } else {
       setMessage("Invalid username or password. Please try again.");
-      alert("Invalid username or password. Please try again.")
+      // alert("Invalid username or password. Please try again.")
     }
   };
+
+  
 
   return (
     <div>

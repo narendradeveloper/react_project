@@ -17,7 +17,17 @@ input{
     
 }
 #sub{
-background-color:#6979d4;
+background-color:rgb(135, 173, 222);
+border: none;
+height: 7vh;
+width: 61.5vh;
+margin-top: 3vh;
+cursor: pointer;
+font-size:larger;
+font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif ;
+}
+#submit{
+ background-color:burlywood;
 border: none;
 height: 7vh;
 width: 61.5vh;
@@ -27,6 +37,9 @@ font-size:larger;
 font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif ;
 }
 #sub:hover{
+    opacity: 0.8;
+}
+#submit:hover{
     opacity: 0.8;
 }
 h1{
