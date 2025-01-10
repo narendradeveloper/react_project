@@ -43,7 +43,7 @@ const Login = () => {
         <img
           src={img}
           alt="img"
-          style={{ height: "15vh",justifyContent:"center",alignItems:"center", paddingLeft:"20vh"}}
+          style={{ height: "15vh",justifyContent:"center",alignItems:"center", paddingLeft:"20vh",borderRadius:"40vh"}}
         ></img>
         <h1>Syndicate Bank</h1>
         {message && (
