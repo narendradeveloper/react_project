@@ -1,43 +1,48 @@
-import "./style.css";
-
-import user1 from "./user1.png"
-import Usersidebar from "./Usersidebar";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import user1 from "./user1.png";
 
-const  Loginuser = () => {
-  const validUser = [
-    { username: "Narendra@12", password: "123abc" },
-    { username: "harish@879", password: "123abc" },
-    { username: "varshitha08@", password: "123abc" },
-    { username: "prashanth67@", password: "123abc" },
-    { username: "nani04@", password: "123abc" },
-  ];
+const Loginuser = () => {
+  const [username, setUsername] = useState(""); 
+  const [password, setPassword] = useState(""); 
+  const [message, setMessage] = useState(""); 
+  const navigate = useNavigate(); 
 
-  const [username, setUsername] = useState("");
-  const [password, setpassword] = useState("");
-  const [message, setMessage] = useState("");
-  const navigate = useNavigate();
+  useEffect(() => {
+    const defaultUsers = [
+      { username: "User1@example.com", password: "psw456" },
+      { username: "User12@example.com", password: "psw456" },
+      { username: "User22@example.com", password: "psw456" },
+      { username: "User52@example.com", password: "psw456" },
+      { username: "User29@example.com", password: "psw456" },
+    ];
+
+    const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
+
+    if (storedUsers.length === 0) {
+      localStorage.setItem("users", JSON.stringify(defaultUsers)); 
+    }
+  }, []);
 
   const handlelogin = (event) => {
     event.preventDefault();
 
-    const isvalid = validUser.some(
+    const users = JSON.parse(localStorage.getItem("users")) || []; 
+
+    
+    const validUser = users.find(
       (user) => user.username === username && user.password === password
     );
-    if (isvalid) {
+
+    if (validUser) {
       setMessage(`Welcome, ${username}! Login successful.`);
-    //   alert(`Welcome, ${username}! Login successful.`)
       setTimeout(() => {
-        navigate("/Usersidebar");
+        navigate("/Usersidebar"); 
       }, 1500);
     } else {
       setMessage("Invalid username or password. Please try again.");
-    //   alert("Invalid username or password. Please try again.")
     }
   };
-
-  
 
   return (
     <div>
@@ -45,8 +50,8 @@ const  Loginuser = () => {
         <img
           src={user1}
           alt="img"
-          style={{ height: "15vh",justifyContent:"center",alignItems:"center", paddingLeft:"20vh",borderRadius:"10px"}}
-        ></img>
+          style={{ height: "15vh", justifyContent: "center", alignItems: "center", paddingLeft: "20vh", borderRadius: "10px" }}
+        />
         <h1>Syndicate Bank</h1>
         {message && (
           <p
@@ -59,21 +64,23 @@ const  Loginuser = () => {
             {message}
           </p>
         )}
-        <label For="username">USER NAME</label>
-        <input
+         
+          <label htmlFor="username"  font="caption">USER NAME</label>
+        <input style={{ font:"caption"}}
           type="text"
           id="username"
           name="username"
-           placeholder="Entername..."
-          onChange={(e) => setUsername(e.target.value)}
+           font="caption"
+          placeholder="Enter name..."
+          onChange={(e) => setUsername(e.target.value)} 
         />
-        <label For="password">PASSWORD</label>
+        <label htmlFor="password">PASSWORD</label>
         <input
           type="password"
           id="password"
           name="password"
-           placeholder="EnterPassword..."
-          onChange={(e) => setpassword(e.target.value)}
+          placeholder="Enter password..."
+          onChange={(e) => setPassword(e.target.value)} 
         />
         <input type="submit" id="submit" value="LOGIN" />
       </form>
@@ -81,4 +88,4 @@ const  Loginuser = () => {
   );
 };
 
-export default Loginuser ;
+export default Loginuser;

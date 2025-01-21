@@ -7,7 +7,7 @@ const Sidebar = ({ activePage, setActivePage }) => {
   const handleNavigation = (page) => {
     setActivePage(page);
     if (page === "Logout") {
-      navigate("/logout");
+      navigate("/admin"); // Navigate to Admin page on Logout
     }
   };
 

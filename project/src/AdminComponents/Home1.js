@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [activePage, setActivePage] = useState("Home");
-  const navigate = useNavigate(); // For programmatic navigation
+  const navigate = useNavigate();
 
   const [accountDetails, setAccountDetails] = useState({
     name: "Michael Jackson",
@@ -36,30 +36,32 @@ const Home = () => {
   return (
     <div style={styles.appContainer}>
       <Sidebar activePage={activePage} setActivePage={setActivePage} />
-      {activePage === "Home" && <Ain accountDetails={accountDetails} transactions={transactions} />}
-      {activePage === "Budget" && <BudgetPage />}
-      {activePage === "Fund Transfer" && (
-        <FundTransfer accountDetails={accountDetails} onTransfer={handleFundTransfer} />
-      )}
-      {activePage ==="Logout" && <Login/>}
-     
+      <div style={styles.mainContent}>
+        {activePage === "Home" && <Ain accountDetails={accountDetails} transactions={transactions} />}
+        {activePage === "Budget" && <BudgetPage />}
+        {activePage === "Fund Transfer" && (
+          <FundTransfer accountDetails={accountDetails} onTransfer={handleFundTransfer} />
+        )}
+        {activePage === "Logout" && <Login />}
+      </div>
     </div>
   );
 };
 
 const styles = {
-  appContainer: { display: "flex", flexDirection: "row", height: "100vh" },
-  logoutButton: {
-    position: "absolute",
-    bottom: "20px",
-    right: "20px",
-    padding: "10px 20px",
-    backgroundColor: "red",
-    color: "white",
-    border: "none",
-    borderRadius: "5px",
-    cursor: "pointer",
+  appContainer: {
+    display: "flex",
+    flexDirection: "row",
+    height: "100vh",
+  },
+  mainContent: {
+    flex: 1,
+    padding: "20px",
+    overflowY: "auto",
   },
 };
 
+
+
 export default Home;
+
