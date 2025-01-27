@@ -3,8 +3,8 @@ import React, { useState } from "react";
 const FundTransfer = ({ accountDetails, onTransfer }) => {
   const [transferAmount, setTransferAmount] = useState("");
   const [selectedReceiver, setSelectedReceiver] = useState("");
-  const [successMessage, setSuccessMessage] = useState(""); // State for success message
-  const [isHovered, setIsHovered] = useState(false); // State for hover effect
+  const [successMessage, setSuccessMessage] = useState("");
+  const [isHovered, setIsHovered] = useState(false);
 
   const receivers = [
     { id: "R001", name: "Alice Smith", balance: 2000 },
@@ -29,13 +29,12 @@ const FundTransfer = ({ accountDetails, onTransfer }) => {
       setTransferAmount("");
       setSelectedReceiver("");
     } else {
-      setSuccessMessage ("Invalid amount or insufficient funds.");
+      setSuccessMessage("Invalid amount or insufficient funds.");
     }
   };
 
   return (
-    <div style={{width:"100vh"}}>
-    <div style={{ width: "100vh", paddingLeft: "10vh" }}>
+    <div style={styles.container}>
       <div style={styles.main}>
         <h1>Fund Transfer</h1>
         {successMessage && <p style={styles.successMessage}>{successMessage}</p>}
@@ -85,7 +84,6 @@ const FundTransfer = ({ accountDetails, onTransfer }) => {
             : 0}
         </p>
 
-
         <button
           onClick={handleTransfer}
           style={{
@@ -99,44 +97,71 @@ const FundTransfer = ({ accountDetails, onTransfer }) => {
         </button>
       </div>
     </div>
-    </div>
   );
 };
 
 const styles = {
-  main: { flex: 1, padding: "20px" },
+  container: {
+   
+  },
+  main: {
+    width: "100%",
+    maxWidth: "600px", 
+    padding: "20px",
+    boxSizing: "border-box",
+    border: "1px solid #ccc",
+    borderRadius: "10px",
+    backgroundColor: "#f9f9f9",
+  },
   input: {
     padding: "10px",
     margin: "10px 0",
-    width: "100vh",
-    font: "caption",
-    height: "4vh",
+    width: "100%",
+    fontSize: "1rem",
+    boxSizing: "border-box",
+    border: "1px solid #ccc",
+    borderRadius: "5px",
   },
   select: {
     padding: "10px",
     margin: "10px 0",
-    width: "105vh",
-    font: "caption",
-    height: "7vh",
+    width: "100%",
+    fontSize: "1rem",
+    boxSizing: "border-box",
+    border: "1px solid #ccc",
+    borderRadius: "5px",
   },
   button: {
-    padding: "15px 30px",
+    padding: "15px",
     color: "white",
     border: "none",
     cursor: "pointer",
-    width: "105vh",
-    font: "caption",
+    width: "100%",
+    fontSize: "1rem",
+    borderRadius: "5px",
   },
   successMessage: {
     color: "green",
-    // margin: "40px 0",
-    backgroundColor:"#FFE4C4",
-    width:"105vh",
-    textAlign :"center",
-    
-    
+    backgroundColor: "#FFE4C4",
+    padding: "10px",
+    margin: "10px 0",
+    textAlign: "center",
+    borderRadius: "5px",
+  },
+  "@media (max-width: 768px)": {
+    main: {
+      padding: "10px",
+    },
+    input: {
+      fontSize: "0.9rem",
+    },
+    select: {
+      fontSize: "0.9rem",
+    },
+    button: {
+      fontSize: "0.9rem",
+    },
   },
 };
-
 
 export default FundTransfer;

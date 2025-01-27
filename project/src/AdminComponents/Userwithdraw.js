@@ -43,8 +43,8 @@ const Userwithdraw = ({ accounts = [], setAccounts }) => {
   const buttonStyle = {
     height: "7vh",
     marginTop: "10px",
-    width: "103vh",
-    backgroundColor: isHovered ? "gray" : "gray", 
+    width: "105vh",
+    backgroundColor: isHovered ? "#e65c00" : "#e65c00", 
     color: "white",
     border: "none",
     borderRadius: "5px",
@@ -54,17 +54,18 @@ const Userwithdraw = ({ accounts = [], setAccounts }) => {
   };
 
   return (
-    <div style={{ width: "100vh", paddingLeft: "25px" }}>
+    <div style={{ width: "110vh", paddingLeft: "25px", backgroundColor:"#f9f9f9",border: "1px solid #ccc",}}>
       <h1>Withdraw</h1>
       {message && (
         <div
           style={{
-            color: "gray",
+            color: "green",
+            backgroundColor:"gray",
             fontWeight: "bold",
             textAlign: "center",
             padding: "10px",
             borderRadius: "5px",
-            backgroundColor: "#FAEBD7",
+            backgroundColor: "#f9f9f9",
           }}
         >
           {message}
@@ -73,7 +74,7 @@ const Userwithdraw = ({ accounts = [], setAccounts }) => {
 
       <label style={{ font: "caption", color: "gray" }}>SELECT ACCOUNT</label>
       <select
-        style={{ height: "7vh", width: "100%", marginBottom: "10px", font: "caption" }}
+        style={{ height: "7vh", width: "95%", marginBottom: "10px", font: "caption" }}
         value={selectedAccountIndex}
         onChange={handleAccountChange}
       >
@@ -97,7 +98,7 @@ const Userwithdraw = ({ accounts = [], setAccounts }) => {
         <div>
           <label>Current Balance</label>
           <input
-            style={{ height: "7vh", marginBottom: "10px", width: "100%", font: "caption" }}
+            style={{ height: "6vh", marginBottom: "10px", width: "94%", font: "caption" }}
             type="text"
             value={currentBalance}
             readOnly
@@ -105,9 +106,9 @@ const Userwithdraw = ({ accounts = [], setAccounts }) => {
         </div>
       )}
 
-      <label style={{ font: "caption", color: "gray" }}>Withdrawal Amount</label>
+      <label style={{ font: "caption", color: "gray" , width: "94%",}}>Withdrawal Amount</label>
       <input
-        style={{ height: "7vh", marginBottom: "10px", width: "100%", font: "caption" }}
+        style={{ height: "6vh", marginBottom: "10px", width: "94%", font: "caption" }}
         type="number"
         value={withdrawAmount}
         onChange={(e) => setWithdrawAmount(e.target.value)}

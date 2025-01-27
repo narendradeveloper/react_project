@@ -6,8 +6,9 @@ const Userdeposit = ({ accounts, setAccounts }) => {
   const [message, setMessage] = useState("");
   const [currentBalance, setCurrentBalance] = useState("");
   const [buttonStyles, setButtonStyles] = useState({
-    backgroundColor: "gray",
+    backgroundColor: "#e65c00",
   });
+
   useEffect(() => {
     if (selectedAccountIndex !== "") {
       const selectedAccount = accounts[selectedAccountIndex];
@@ -16,6 +17,7 @@ const Userdeposit = ({ accounts, setAccounts }) => {
       setCurrentBalance("");
     }
   }, [selectedAccountIndex, accounts]);
+
   const handleDeposit = () => {
     if (selectedAccountIndex === "" || depositAmount <= 0 || isNaN(depositAmount)) {
       setMessage("Please select an account and enter a valid deposit amount.");
@@ -34,20 +36,20 @@ const Userdeposit = ({ accounts, setAccounts }) => {
 
   const handleMouseEnter = () => {
     setButtonStyles({
-      backgroundColor: "gray", 
+      backgroundColor: "#e65c00", 
     });
   };
 
   const handleMouseLeave = () => {
     setButtonStyles({
-      backgroundColor: "gray",
+      backgroundColor: "#e65c00",
       opacity: 0.8, 
     });
   };
 
   return (
-    <div style={{ width: "100vh", paddingLeft: "25px" }}>
-      <h1>Deposit</h1>
+    <div style={{ width: "110vh",height:"auto", padding: "0 10%", boxSizing: "border-box",backgroundColor: "#f9f9f9"  , border: "1px solid #ccc" }}>
+      <h1 style={{ textAlign: "center" }}>Deposit</h1>
 
       {message && (
         <div
@@ -58,6 +60,7 @@ const Userdeposit = ({ accounts, setAccounts }) => {
             padding: "10px",
             borderRadius: "5px",
             backgroundColor: "#FAEBD7",
+            marginBottom: "20px",
           }}
         >
           {message}
@@ -69,7 +72,7 @@ const Userdeposit = ({ accounts, setAccounts }) => {
       <select
         style={{
           height: "7vh",
-          width: "100vh",
+          width: "90vh",
           marginBottom: "10px",
           font: "caption",
         }}
@@ -92,9 +95,9 @@ const Userdeposit = ({ accounts, setAccounts }) => {
           <br />
           <input
             style={{
-              height: "7vh",
+              height: "6vh",
               marginBottom: "10px",
-              width: "100vh",
+              width: "90vh",
               font: "caption",
             }}
             type="text"
@@ -108,9 +111,9 @@ const Userdeposit = ({ accounts, setAccounts }) => {
       <br />
       <input
         style={{
-          height: "7vh",
+          height: "6vh",
           marginBottom: "10px",
-          width: "100vh",
+          width: "90vh",
           font: "caption",
         }}
         type="number"
@@ -122,7 +125,7 @@ const Userdeposit = ({ accounts, setAccounts }) => {
         style={{
           height: "7vh",
           marginTop: "10px",
-          width: "103vh",
+          width: "90vh",
           backgroundColor: buttonStyles.backgroundColor,
           color: "white",
           border: "none",

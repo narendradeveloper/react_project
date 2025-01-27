@@ -6,9 +6,9 @@ const CreateAccount = ({ onCreateAccount }) => {
     accountType: "CHECKING ACCOUNT",
     email: "",
     balance: "",
-    password: "", // Ensure password field is in formData
+    password: "",
   });
-  const [accountNumber, setAccountNumber] = useState(""); // State to hold generated account number
+  const [accountNumber, setAccountNumber] = useState("");
 
   const generateAccountNumber = () => {
     return Math.floor(1000000000 + Math.random() * 9000000000).toString();
@@ -25,117 +25,192 @@ const CreateAccount = ({ onCreateAccount }) => {
       ...formData,
       accountNumber: generateAccountNumber(),
     };
-    onCreateAccount(newAccount); 
-    setAccountNumber(newAccount.accountNumber); // Set the generated account number
+    onCreateAccount(newAccount);
+    setAccountNumber(newAccount.accountNumber);
     setFormData({
       fullName: "",
       accountType: "CHECKING ACCOUNT",
       email: "",
       balance: "",
-      password: "", // Reset password field after submit
-    }); 
+      password: "",
+    });
   };
 
   return (
-    <div style={{ backgroundColor: "", padding: "20px", borderRadius: "10px", }}>
-      <h1>Create  Account</h1>
-      <p>Create a new client account</p>
-      <form
-        onSubmit={handleSubmit}
-        style={{ display: "flex", flexDirection: "column", gap: "10px", }}
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100vh",
+        minHeight: "100vh",
+        padding: "20px",
+        border: "1px solid #ccc",
+        
+       backgroundColor:"#f9f9f9",
+      }}
+    >
+      <div
+        style={{
+          backgroundColor: "#f9f9f9",
+          padding: "20px",
+          borderRadius: "10px",
+          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+          width: "100vh",
+        }}
       >
-        <label style={{ font: "caption", color: "gray" }}>FULL NAME</label>
-        <input
-          style={{ width :"100vh",font:"caption" }}
-          type="text"
-          
-          name="fullName"
-          font="caption"
-          value={formData.fullName}
-          onChange={handleChange}
-          required
-        />
-
-        <label style={{ font: "caption", color: "gray" }}>ACCOUNT TYPE</label>
-        <select
-          style={{ height: "7vh", font: "caption" }}
-          name="accountType"
-          value={formData.accountType}
-          onChange={handleChange}
-        >
-          <option value="CHECKING ACCOUNT">CHECKING ACCOUNT</option>
-          <option value="SAVINGS ACCOUNT">SAVINGS ACCOUNT</option>
-        </select>
-
-        <label style={{ font: "caption", color: "gray", }}>INITIAL BALANCE</label>
-        <input
-          style={{width :"100vh",font:"caption" }}
-          type="number"
-          name="balance"
-          value={formData.balance}
-          onChange={handleChange}
-          required
-        />
-
-        <label style={{ font: "caption", color: "gray" }}>Email ADDRESS</label>
-        <input
-          style={{width :"100vh",font:"caption"  }}
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-
-        <label style={{ font: "caption", color: "gray" }}>PASSWORD</label>
-        <input
-          style={{width:"100vh"}}
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
-
-        {/* Show generated account number after submission */}
-        {accountNumber && (
-          <div>
-            <label style={{ font: "caption", color: "white" }}>Generated Account Number</label>
-            <input
-              style={{ backgroundColor: "#f1f1f1", color: "black" }}
-              type="text"
-              value={accountNumber}
-              readOnly
-            />
-          </div>
-        )}
-
-        <button
-          id="Account"
+        <h1>Create Account</h1>
+        <p>Create a new client account</p>
+        <form
+          onSubmit={handleSubmit}
           style={{
-            // width: "100vw",
-            height: "7vh",
-            color:"white",
-            font:"revert-layer",
-            backgroundColor: "gray",
-            borderStyle: "none",
-            opacity: "0.8",
-            cursor: "pointer",
-            transition: "opacity 0.3s, background-color 0.3s",
-          }}
-          type="submit"
-          onMouseEnter={(e) => {
-            e.target.style.opacity = "1"; // Increase opacity on hover
-            e.target.style.backgroundColor = "darkgray"; // Change color on hover
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.opacity = "0.8"; // Reset opacity
-            e.target.style.backgroundColor = "gray"; // Reset color
+            display: "flex",
+            flexDirection: "column",
+            gap: "15px",
+            backgroundColor: "#f9f9f9",
           }}
         >
-          CREATE ACCOUNT
-        </button>
-      </form>
+          <label style={{ fontSize: "14px", color: "gray" }}>FULL NAME</label>
+          <input
+            style={{
+              width: "100%",
+              padding: "10px",
+              fontSize: "14px",
+              border: "1px solid #ccc",
+              borderRadius: "5px",
+              boxSizing: "border-box",
+            }}
+            type="text"
+            name="fullName"
+            value={formData.fullName}
+            onChange={handleChange}
+            required
+          />
+
+          <label style={{ fontSize: "14px", color: "gray" }}>ACCOUNT TYPE</label>
+          <select
+            style={{
+              width: "100%",
+              padding: "10px",
+              fontSize: "14px",
+              border: "1px solid #ccc",
+              borderRadius: "5px",
+              boxSizing: "border-box",
+            }}
+            name="accountType"
+            value={formData.accountType}
+            onChange={handleChange}
+          >
+            <option value="CHECKING ACCOUNT">CHECKING ACCOUNT</option>
+            <option value="SAVINGS ACCOUNT">SAVINGS ACCOUNT</option>
+            <option value="CURRENT ACCOUNT">CURRENT ACCOUNT</option>
+          </select>
+
+          <label style={{ fontSize: "14px", color: "gray" }}>INITIAL BALANCE</label>
+          <input
+            style={{
+              width: "100%",
+              padding: "10px",
+              fontSize: "14px",
+              border: "1px solid #ccc",
+              borderRadius: "5px",
+              boxSizing: "border-box",
+              font:"caption",
+            }}
+            type="number"
+            name="balance"
+            value={formData.balance}
+            onChange={handleChange}
+            required
+          />
+
+          <label style={{ fontSize: "14px", color: "gray" }}>EMAIL ADDRESS</label>
+          <input
+            style={{
+              width: "100%",
+              padding: "10px",
+              fontSize: "14px",
+              border: "1px solid #ccc",
+              borderRadius: "5px",
+              boxSizing: "border-box",
+              font:"caption"
+            }}
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+
+          <label style={{ fontSize: "14px", color: "gray" }}>PASSWORD</label>
+          <input
+            style={{
+              width: "100%",
+              padding: "10px",
+              fontSize: "14px",
+              border: "1px solid #ccc",
+              borderRadius: "5px",
+              boxSizing: "border-box",
+            }}
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+
+          {accountNumber && (
+            <div>
+              <label style={{ fontSize: "14px", color: "gray" }}>
+                Generated Account Number
+              </label>
+              <input
+                style={{
+                  backgroundColor: "#e65c00",
+                  color: "#fff",
+                  width: "100%",
+                  padding: "10px",
+                  fontSize: "14px",
+                  border: "none",
+                  borderRadius: "5px",
+                  boxSizing: "border-box",
+                  textAlign: "center",
+                }}
+                type="text"
+                value={accountNumber}
+                readOnly
+              />
+            </div>
+          )}
+
+          <button
+            id="Account"
+            style={{
+              width: "100%",
+              padding: "15px",
+              color: "white",
+              fontSize: "16px",
+              fontWeight: "bold",
+              backgroundColor: "#e65c00",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+              transition: "opacity 0.3s, background-color 0.3s",
+            }}
+            type="submit"
+            onMouseEnter={(e) => {
+              e.target.style.opacity = "1";
+              e.target.style.backgroundColor = "#d45400";
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.opacity = "0.9";
+              e.target.style.backgroundColor = "#e65c00";
+            }}
+          >
+            CREATE ACCOUNT
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

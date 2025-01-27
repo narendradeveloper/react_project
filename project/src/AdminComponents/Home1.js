@@ -53,15 +53,30 @@ const styles = {
     display: "flex",
     flexDirection: "row",
     height: "100vh",
+    width: "100%",
   },
   mainContent: {
     flex: 1,
     padding: "20px",
     overflowY: "auto",
+    boxSizing: "border-box",
+  },
+  "@media (max-width: 768px)": {
+    appContainer: {
+      flexDirection: "column", 
+    },
+    mainContent: {
+      padding: "10px",
+    },
+  },
+  "@media (max-width: 480px)": {
+    appContainer: {
+      flexDirection: "column",
+    },
+    mainContent: {
+      padding: "5px",
+    },
   },
 };
 
-
-
 export default Home;
-

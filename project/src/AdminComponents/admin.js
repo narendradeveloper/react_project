@@ -3,31 +3,29 @@ import { useNavigate } from "react-router-dom";
 
 const Admin = () => {
   const navigate = useNavigate();
-  const [allowNavigation, setAllowNavigation] = useState(false); // Block navigation initially
+  const [allowNavigation, setAllowNavigation] = useState(false); 
 
   useEffect(() => {
     const handlePopState = (event) => {
       if (!allowNavigation) {
-        window.history.pushState(null, "", "/admin"); // Push Admin page back to history
+        window.history.pushState(null, "", "/admin"); 
       }
     };
 
     window.addEventListener("popstate", handlePopState);
 
     return () => {
-      window.removeEventListener("popstate", handlePopState); // Clean up the listener
+      window.removeEventListener("popstate", handlePopState); 
     };
   }, [allowNavigation]);
 
   const handleAdminClick = () => {
     setAllowNavigation(true); 
-    alert("username and password check local section")
     navigate("/login"); 
   };
 
   const handleUserClick = () => {
     setAllowNavigation(true); 
-    alert("username and password check local section")
     navigate("/loginuser"); 
   };
 

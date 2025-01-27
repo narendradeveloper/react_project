@@ -7,7 +7,7 @@ const Sidebar = ({ activePage, setActivePage }) => {
   const handleNavigation = (page) => {
     setActivePage(page);
     if (page === "Logout") {
-      navigate("/admin"); // Navigate to Admin page on Logout
+      navigate("/admin"); 
     }
   };
 
@@ -33,7 +33,7 @@ const Sidebar = ({ activePage, setActivePage }) => {
 };
 
 const styles = {
-  sidebar: { width: "250px", background: "DodgerBlue", color: "white", padding: "20px" },
+  sidebar: { width: "200px", background: "#0047ab", color: "white", padding: "20px" },
   sidebarHeading: { marginBottom: "20px" },
   sidebarList: { listStyleType: "none", padding: 0, fontSize: "large" },
   sidebarItem: { margin: "10px 0", cursor: "pointer" },

@@ -13,6 +13,7 @@ const Usersidebar = () => {
   });
 
   const [activePage, setActivePage] = useState("home");
+  const [activeButton, setActiveButton] = useState(""); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,10 +26,11 @@ const Usersidebar = () => {
       return updatedAccounts;
     });
     setActivePage("home");
+    setActiveButton("home"); 
   };
 
   const handleLogout = () => {
-    navigate("/admin"); // Redirect to the Admin page after logout
+    navigate("/admin");
   };
 
   const renderContent = () => {
@@ -48,55 +50,76 @@ const Usersidebar = () => {
     }
   };
 
+  const handleButtonClick = (page) => {
+    setActivePage(page);
+    setActiveButton(page); 
+  };
+
   return (
     <div style={{ display: "flex" }}>
       <div
         style={{
           width: "250px",
-          backgroundColor: "LightGray",
           height: "100vh",
+          backgroundColor: "#e65c00",
           position: "fixed",
           overflowY: "auto",
           paddingTop: "10px",
-          marginLeftLeft:"10px"
         }}
       >
         <h2 style={{ paddingLeft: "10px", marginTop: "5vh" }}>Syndicate Bank</h2>
         <div>
           <div
-            onClick={() => setActivePage("home")}
-            style={styles.sidebarItem}
+            onClick={() => handleButtonClick("home")}
+            style={{
+              ...styles.sidebarItem,
+              backgroundColor: activeButton === "home" ? "#ff8c1a" : "transparent",
+              color: activeButton === "home" ? "white" : "black",
+            }}
           >
             Home
           </div>
           <div
-            onClick={() => setActivePage("createAccount")}
-            style={styles.sidebarItem}
+            onClick={() => handleButtonClick("createAccount")}
+            style={{
+              ...styles.sidebarItem,
+              backgroundColor: activeButton === "createAccount" ? "#ff8c1a" : "transparent",
+              color: activeButton === "createAccount" ? "white" : "black",
+            }}
           >
             Create Account
           </div>
           <div
-            onClick={() => setActivePage("fundTransfer")}
-            style={styles.sidebarItem}
+            onClick={() => handleButtonClick("fundTransfer")}
+            style={{
+              ...styles.sidebarItem,
+              backgroundColor: activeButton === "fundTransfer" ? "#ff8c1a" : "transparent",
+              color: activeButton === "fundTransfer" ? "white" : "black",
+            }}
           >
             Fund Transfer
           </div>
           <div
-            onClick={() => setActivePage("deposit")}
-            style={styles.sidebarItem}
+            onClick={() => handleButtonClick("deposit")}
+            style={{
+              ...styles.sidebarItem,
+              backgroundColor: activeButton === "deposit" ? "#ff8c1a" : "transparent",
+              color: activeButton === "deposit" ? "white" : "black",
+            }}
           >
             Deposit
           </div>
           <div
-            onClick={() => setActivePage("withdraw")}
-            style={styles.sidebarItem}
+            onClick={() => handleButtonClick("withdraw")}
+            style={{
+              ...styles.sidebarItem,
+              backgroundColor: activeButton === "withdraw" ? "#ff8c1a" : "transparent",
+              color: activeButton === "withdraw" ? "white" : "black",
+            }}
           >
             Withdraw
           </div>
-          <div
-            onClick={handleLogout}
-            style={styles.sidebarItem}
-          >
+          <div onClick={handleLogout} style={styles.sidebarItem}>
             Logout
           </div>
         </div>
@@ -111,11 +134,11 @@ const styles = {
     cursor: "pointer",
     padding: "8px",
     paddingLeft: "5vh",
-    marginBottom: "10px", // Gap between buttons
-    transition: "all 0.3s ease",
+    marginBottom: "10px",
+    transition: "all 0.3s",
     borderRadius: "5px",
-    color: "black", 
-    font:"caption"
+    font: "caption",
+    backgroundColor: "transparent",
   },
 };
 

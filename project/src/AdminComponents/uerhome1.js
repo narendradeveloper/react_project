@@ -1,74 +1,121 @@
 import React, { useState } from "react";
 
 const Userhome1 = ({ accounts, setAccounts }) => {
-  const [isEditing, setIsEditing] = useState(null); // Track the editing state
-  const [editedAccount, setEditedAccount] = useState({}); // Store the edited account details
+  const [isEditing, setIsEditing] = useState(null);
+  const [editedAccount, setEditedAccount] = useState({});
+  const [isDeleted, setIsDeleted] = useState(false); 
 
   const handleEditClick = (index) => {
     setIsEditing(index);
-    setEditedAccount(accounts[index]); // Load account data for editing
+    setEditedAccount({ ...accounts[index] });
   };
 
   const handleEditChange = (e) => {
     const { name, value } = e.target;
-    setEditedAccount({ ...editedAccount, [name]: value }); // Update account data
+    setEditedAccount({ ...editedAccount, [name]: value });
   };
 
   const handleSaveClick = () => {
-    const updatedAccounts = [...accounts];
-    updatedAccounts[isEditing] = editedAccount; // Save the updated account
-    setAccounts(updatedAccounts); // Update the state with the new accounts list
-    setIsEditing(null); // Exit editing mode
+    if (isEditing !== null) {
+      const updatedAccounts = [...accounts];
+      updatedAccounts[isEditing] = editedAccount;
+      setAccounts(updatedAccounts); 
+      setIsEditing(null);
+    }
   };
 
   const handleDeleteClick = (index) => {
-    const updatedAccounts = accounts.filter((_, i) => i !== index); // Remove the selected account
-    setAccounts(updatedAccounts); // Update the accounts state after deletion
+    const confirmed = window.confirm("Are you sure you want to delete this user?");
+    if (confirmed) {
+      const updatedAccounts = accounts.filter((_, i) => i !== index);
+      setAccounts(updatedAccounts); 
+      setIsDeleted(true); 
+    }
   };
 
   return (
-    <div>
+    <div style={{ padding: "20px", width: "50vh", margin: "0 auto" ,textAlign:"center"}}>
       <h1>User Details</h1>
-      {accounts.length > 0 ? (
+      {isDeleted ? (
+        <p style={{ color: "", textAlign: "center" }}>Account deleted</p>
+      ) : accounts.length > 0 ? (
         accounts.map((account, index) => (
-          <div key={index} style={{ marginBottom: "20px", padding: "10px" }}>
+          <div
+            key={index}
+            style={{
+              marginBottom: "20px",
+              padding: "15px",
+              border: "1px solid #ccc",
+              borderRadius: "8px",
+              backgroundColor: "#f9f9f9",
+            }}
+          >
             {isEditing === index ? (
               <div>
+                <label>Full Name:</label>
                 <input
                   type="text"
                   name="fullName"
-                  value={editedAccount.fullName}
+                  value={editedAccount.fullName || ""}
                   onChange={handleEditChange}
+                  style={{ display: "block", marginBottom: "10px", width: "100%" }}
                 />
+                <label>Account Type:</label>
                 <input
                   type="text"
                   name="accountType"
-                  value={editedAccount.accountType}
+                  value={editedAccount.accountType || ""}
                   onChange={handleEditChange}
+                  style={{ display: "block", marginBottom: "10px", width: "100%" }}
                 />
+                <label>Balance:</label>
                 <input
                   type="number"
                   name="balance"
-                  value={editedAccount.balance}
+                  value={editedAccount.balance || ""}
                   onChange={handleEditChange}
+                  style={{ display: "block", marginBottom: "10px", width: "100%" }}
                 />
-                <button onClick={handleSaveClick}>Save</button>
-                <button onClick={() => setIsEditing(null)}>Cancel</button>
+                <button
+                  onClick={handleSaveClick}
+                  style={{
+                    marginRight: "10px",
+                    backgroundColor: "#4CAF50",
+                    color: "white",
+                    padding: "5px 10px",
+                    border: "none",
+                    borderRadius: "4px",
+                  }}
+                >
+                  Save
+                </button>
+                <button
+                  onClick={() => setIsEditing(null)}
+                  style={{
+                    backgroundColor: "#f44336",
+                    color: "white",
+                    padding: "15px 40px",
+                    border: "none",
+                    borderRadius: "4px",
+                  }}
+                >
+                </button>
               </div>
             ) : (
               <div>
                 <h2>{account.fullName}</h2>
-                <p>{account.accountType}</p>
+                <p> {account.accountType}</p>
                 <p>{account.accountNumber}</p>
                 <h3>{account.balance}</h3>
-                <button onClick={() => handleEditClick(index)}>Edit</button>
-                <button onClick={() => handleDeleteClick(index)}>Delete</button>
+               
+                
               </div>
             )}
           </div>
         ))
       ) : (
-        <p>No accounts available.</p>
+        <p style={{ textAlign: "center", color: "#888", fontSize: "18px" }}>
+        </p>
       )}
     </div>
   );
