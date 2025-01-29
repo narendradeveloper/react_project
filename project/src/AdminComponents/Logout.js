@@ -3,12 +3,14 @@ import { useNavigate } from "react-router-dom";
 
 import img from "./Image.png";
 
-const Logout = () => {
+const Logout= () => {
   const navigate = useNavigate();
   const [adminData, setAdminData] = useState({ name: "", email: "", password: "", confirmPassword: "" });
   const [userData, setUserData] = useState({ name: "", email: "", password: "", confirmPassword: "" });
   const [message, setMessage] = useState("");
-  const [activeForm, setActiveForm] = useState(null); 
+  const [activeForm, setActiveForm] = useState(null);
+  const [isHoveredAdmin, setIsHoveredAdmin] = useState(false);  // Track hover for admin button
+  const [isHoveredUser, setIsHoveredUser] = useState(false);  // Track hover for user button
 
   useEffect(() => {
     if (!localStorage.getItem("adminAccounts")) localStorage.setItem("adminAccounts", JSON.stringify([]));
@@ -16,7 +18,7 @@ const Logout = () => {
   }, []);
 
   const register = (type) => {
-    setMessage(""); 
+    setMessage("");
     const data = type === "admin" ? adminData : userData;
 
     if (!data.name || !data.email || !data.password || !data.confirmPassword) {
@@ -45,7 +47,7 @@ const Logout = () => {
   };
 
   const signIn = (type) => {
-    setMessage(""); 
+    setMessage("");
     const key = type === "admin" ? "adminAccounts" : "userAccounts";
     let accounts = JSON.parse(localStorage.getItem(key)) || [];
     const data = type === "admin" ? adminData : userData;
@@ -62,8 +64,14 @@ const Logout = () => {
 
   const handleFormSwitch = (type) => {
     setActiveForm(type);
-    setMessage(""); 
+    setMessage("");
   };
+
+  const handleMouseEnterAdmin = () => setIsHoveredAdmin(true);
+  const handleMouseLeaveAdmin = () => setIsHoveredAdmin(false);
+  
+  const handleMouseEnterUser = () => setIsHoveredUser(true);
+  const handleMouseLeaveUser = () => setIsHoveredUser(false);
 
   return (
     <div style={styles.firstheader}>
@@ -75,7 +83,14 @@ const Logout = () => {
             <input type="email" placeholder="Email..." style={styles.input} onChange={(e) => setAdminData({ ...adminData, email: e.target.value })} />
             <input type="password" placeholder="Password" style={styles.input} onChange={(e) => setAdminData({ ...adminData, password: e.target.value })} />
             <input type="password" placeholder="Confirm-password" style={styles.input} onChange={(e) => setAdminData({ ...adminData, confirmPassword: e.target.value })} />
-            <button style={styles.button} onClick={() => register("admin")}>REGISTER</button>
+            <button
+              style={isHoveredAdmin ? styles.buttonHover : styles.button} 
+              onClick={() => register("admin")}
+              onMouseEnter={handleMouseEnterAdmin}
+              onMouseLeave={handleMouseLeaveAdmin}
+            >
+              REGISTER
+            </button>
           </div>
           <p style={styles.signInText}>
             Already have an account? <span onClick={() => { handleFormSwitch("admin"); signIn("admin"); }} style={styles.link}>Sign In</span>
@@ -90,7 +105,14 @@ const Logout = () => {
             <input type="email" placeholder="Email..." style={styles.input} onChange={(e) => setUserData({ ...userData, email: e.target.value })} />
             <input type="password" placeholder="Password" style={styles.input} onChange={(e) => setUserData({ ...userData, password: e.target.value })} />
             <input type="password" placeholder="Confirm-password" style={styles.input} onChange={(e) => setUserData({ ...userData, confirmPassword: e.target.value })} />
-            <button style={styles.button} onClick={() => register("user")}>REGISTER</button>
+            <button
+              style={isHoveredUser ? styles.buttonHover : styles.button} 
+              onClick={() => register("user")}
+              onMouseEnter={handleMouseEnterUser}
+              onMouseLeave={handleMouseLeaveUser}
+            >
+              REGISTER
+            </button>
           </div>
           <p style={styles.signInText}>
             Already have an account? <span onClick={() => { handleFormSwitch("user"); signIn("user"); }} style={styles.link}>Sign In</span>
@@ -103,7 +125,6 @@ const Logout = () => {
 };
 
 const styles = {
- 
   wrapper: {
     display: "flex",
     flexWrap: "wrap",
@@ -153,10 +174,18 @@ const styles = {
     cursor: "pointer",
     marginLeft: "35px",
     transition: "background-color 0.3s, transform 0.2s",
-    ":hover": {
-      backgroundColor: "#e0d7d4",
-      transform: "scale(1.05)",
-    },
+  },
+  buttonHover: {
+    width: "80%",
+    height: "40px",
+    backgroundColor: "red", // Hover color
+    borderRadius: "10px",
+    border: "none",
+    fontSize: "18px",
+    fontWeight: "bold",
+    cursor: "pointer",
+    marginLeft: "35px",
+    transform: "scale(1.05)", // Hover effect
   },
   signInText: {
     paddingLeft: "30px",
