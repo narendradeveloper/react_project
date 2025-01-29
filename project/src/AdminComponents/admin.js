@@ -7,7 +7,8 @@ const Admin = () => {
   const [userData, setUserData] = useState({ name: "", email: "", password: "", confirmPassword: "" });
   const [message, setMessage] = useState("");
   const [activeForm, setActiveForm] = useState(null);
-  const [isHovered, setIsHovered] = useState(false); // Track hover state
+  const [isHoveredAdmin, setIsHoveredAdmin] = useState(false);  // Track hover for admin button
+  const [isHoveredUser, setIsHoveredUser] = useState(false);  // Track hover for user button
 
   useEffect(() => {
     if (!localStorage.getItem("adminAccounts")) localStorage.setItem("adminAccounts", JSON.stringify([]));
@@ -64,8 +65,11 @@ const Admin = () => {
     setMessage("");
   };
 
-  const handleMouseEnter = () => setIsHovered(true);
-  const handleMouseLeave = () => setIsHovered(false);
+  const handleMouseEnterAdmin = () => setIsHoveredAdmin(true);
+  const handleMouseLeaveAdmin = () => setIsHoveredAdmin(false);
+  
+  const handleMouseEnterUser = () => setIsHoveredUser(true);
+  const handleMouseLeaveUser = () => setIsHoveredUser(false);
 
   return (
     <div style={styles.firstheader}>
@@ -78,10 +82,10 @@ const Admin = () => {
             <input type="password" placeholder="Password" style={styles.input} onChange={(e) => setAdminData({ ...adminData, password: e.target.value })} />
             <input type="password" placeholder="Confirm-password" style={styles.input} onChange={(e) => setAdminData({ ...adminData, confirmPassword: e.target.value })} />
             <button
-              style={isHovered ? styles.buttonHover : styles.button} 
+              style={isHoveredAdmin ? styles.buttonHover : styles.button} 
               onClick={() => register("admin")}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
+              onMouseEnter={handleMouseEnterAdmin}
+              onMouseLeave={handleMouseLeaveAdmin}
             >
               REGISTER
             </button>
@@ -100,10 +104,10 @@ const Admin = () => {
             <input type="password" placeholder="Password" style={styles.input} onChange={(e) => setUserData({ ...userData, password: e.target.value })} />
             <input type="password" placeholder="Confirm-password" style={styles.input} onChange={(e) => setUserData({ ...userData, confirmPassword: e.target.value })} />
             <button
-              style={isHovered ? styles.buttonHover : styles.button} 
+              style={isHoveredUser ? styles.buttonHover : styles.button} 
               onClick={() => register("user")}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
+              onMouseEnter={handleMouseEnterUser}
+              onMouseLeave={handleMouseLeaveUser}
             >
               REGISTER
             </button>
@@ -152,7 +156,7 @@ const styles = {
     borderRadius: "10px",
     border: "none",
     height: "20px",
-    backgroundColor: "",
+    backgroundColor: "white",
     outline: "none",
     padding: "10px",
     margin: "auto",
@@ -160,7 +164,7 @@ const styles = {
   button: {
     width: "80%",
     height: "40px",
-    backgroundColor: "blue",
+    backgroundColor: "#f1eae7",
     borderRadius: "10px",
     border: "none",
     fontSize: "18px",
@@ -168,7 +172,6 @@ const styles = {
     cursor: "pointer",
     marginLeft: "35px",
     transition: "background-color 0.3s, transform 0.2s",
-    opacity: "0.4",  // Normal opacity
   },
   buttonHover: {
     width: "80%",
@@ -181,7 +184,6 @@ const styles = {
     cursor: "pointer",
     marginLeft: "35px",
     transform: "scale(1.05)", // Hover effect
-    opacity: 0.1, // Reduced opacity on hover
   },
   signInText: {
     paddingLeft: "30px",
