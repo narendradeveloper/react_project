@@ -1,12 +1,11 @@
 import "./style.css";
 import img from "./Image.png";
+import bank from "./bank.png";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const defaultUser = { username: "admin@gmail.com", password: "123abc" };
-                       
-
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -40,7 +39,7 @@ const Login = () => {
   };
 
   return (
-
+    <div style={styles.container}>
       <div style={styles.rightSide}>
         <form onSubmit={handleLogin} style={styles.form}>
           <img src={img} alt="Bank Logo" style={styles.logo} />
@@ -88,6 +87,7 @@ const Login = () => {
           />
         </form>
       </div>
+    </div>
   );
 };
 
@@ -96,27 +96,26 @@ const styles = {
     display: "flex",
     flexDirection: "row",
     height: "100vh",
-    backgroundColor: "#f8f9fa",
-  },
-  leftSide: {
-    padding: "20px",
-    backgroundColor: "#e9ecef",
-    borderRight: "1px solid #ccc",
-    textAlign: "left",
-    fontSize: "16px",
-    lineHeight: "1.8",
+    // backgroundColor: "#f8f9fa",
+    position: "relative",
   },
   rightSide: {
     flex: 1,
-    padding: "50px",
+    padding: "40px",
+    paddingRight:"500px",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    backgroundImage: `url(${bank})`, // Correct image path here
+    backgroundSize: "cover", // Ensures the background image covers the whole div
+    backgroundPosition: "center", // Centers the background image
+    backgroundRepeat: "no-repeat", // Prevents the image from repeating
   },
   form: {
     width: "300px",
-    padding: "20px",
-    backgroundColor: "white",
+    padding: "40px",
+    paddingRight:"100px",
+    // backgroundColor: "white",
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
     borderRadius: "10px",
   },
@@ -142,7 +141,7 @@ const styles = {
     marginBottom: "15px",
     border: "1px solid #ccc",
     borderRadius: "5px",
-    font:"caption",
+    font: "caption",
   },
   submitButton: {
     width: "100%",
