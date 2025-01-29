@@ -6,7 +6,8 @@ const Admin = () => {
   const [adminData, setAdminData] = useState({ name: "", email: "", password: "", confirmPassword: "" });
   const [userData, setUserData] = useState({ name: "", email: "", password: "", confirmPassword: "" });
   const [message, setMessage] = useState("");
-  const [activeForm, setActiveForm] = useState(null); 
+  const [activeForm, setActiveForm] = useState(null);
+  const [isHovered, setIsHovered] = useState(false); // Track hover state
 
   useEffect(() => {
     if (!localStorage.getItem("adminAccounts")) localStorage.setItem("adminAccounts", JSON.stringify([]));
@@ -14,7 +15,7 @@ const Admin = () => {
   }, []);
 
   const register = (type) => {
-    setMessage(""); 
+    setMessage("");
     const data = type === "admin" ? adminData : userData;
 
     if (!data.name || !data.email || !data.password || !data.confirmPassword) {
@@ -43,7 +44,7 @@ const Admin = () => {
   };
 
   const signIn = (type) => {
-    setMessage(""); 
+    setMessage("");
     const key = type === "admin" ? "adminAccounts" : "userAccounts";
     let accounts = JSON.parse(localStorage.getItem(key)) || [];
     const data = type === "admin" ? adminData : userData;
@@ -60,8 +61,11 @@ const Admin = () => {
 
   const handleFormSwitch = (type) => {
     setActiveForm(type);
-    setMessage(""); 
+    setMessage("");
   };
+
+  const handleMouseEnter = () => setIsHovered(true);
+  const handleMouseLeave = () => setIsHovered(false);
 
   return (
     <div style={styles.firstheader}>
@@ -73,7 +77,14 @@ const Admin = () => {
             <input type="email" placeholder="Email..." style={styles.input} onChange={(e) => setAdminData({ ...adminData, email: e.target.value })} />
             <input type="password" placeholder="Password" style={styles.input} onChange={(e) => setAdminData({ ...adminData, password: e.target.value })} />
             <input type="password" placeholder="Confirm-password" style={styles.input} onChange={(e) => setAdminData({ ...adminData, confirmPassword: e.target.value })} />
-            <button style={styles.button} onClick={() => register("admin")}>REGISTER</button>
+            <button
+              style={isHovered ? styles.buttonHover : styles.button} 
+              onClick={() => register("admin")}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              REGISTER
+            </button>
           </div>
           <p style={styles.signInText}>
             Already have an account? <span onClick={() => { handleFormSwitch("admin"); signIn("admin"); }} style={styles.link}>Sign In</span>
@@ -88,7 +99,14 @@ const Admin = () => {
             <input type="email" placeholder="Email..." style={styles.input} onChange={(e) => setUserData({ ...userData, email: e.target.value })} />
             <input type="password" placeholder="Password" style={styles.input} onChange={(e) => setUserData({ ...userData, password: e.target.value })} />
             <input type="password" placeholder="Confirm-password" style={styles.input} onChange={(e) => setUserData({ ...userData, confirmPassword: e.target.value })} />
-            <button style={styles.button} onClick={() => register("user")}>REGISTER</button>
+            <button
+              style={isHovered ? styles.buttonHover : styles.button} 
+              onClick={() => register("user")}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              REGISTER
+            </button>
           </div>
           <p style={styles.signInText}>
             Already have an account? <span onClick={() => { handleFormSwitch("user"); signIn("user"); }} style={styles.link}>Sign In</span>
@@ -101,7 +119,6 @@ const Admin = () => {
 };
 
 const styles = {
- 
   wrapper: {
     display: "flex",
     flexWrap: "wrap",
@@ -135,7 +152,7 @@ const styles = {
     borderRadius: "10px",
     border: "none",
     height: "20px",
-    backgroundColor: "white",
+    backgroundColor: "",
     outline: "none",
     padding: "10px",
     margin: "auto",
@@ -143,18 +160,28 @@ const styles = {
   button: {
     width: "80%",
     height: "40px",
-    backgroundColor: "#f1eae7",
+    backgroundColor: "blue",
     borderRadius: "10px",
     border: "none",
     fontSize: "18px",
     fontWeight: "bold",
     cursor: "pointer",
-    marginLeft: "15px",
+    marginLeft: "35px",
     transition: "background-color 0.3s, transform 0.2s",
-    ":hover": {
-      backgroundColor: "#e0d7d4",
-      transform: "scale(1.05)",
-    },
+    opacity: "0.4",  // Normal opacity
+  },
+  buttonHover: {
+    width: "80%",
+    height: "40px",
+    backgroundColor: "red", // Hover color
+    borderRadius: "10px",
+    border: "none",
+    fontSize: "18px",
+    fontWeight: "bold",
+    cursor: "pointer",
+    marginLeft: "35px",
+    transform: "scale(1.05)", // Hover effect
+    opacity: 0.1, // Reduced opacity on hover
   },
   signInText: {
     paddingLeft: "30px",
@@ -167,7 +194,7 @@ const styles = {
     fontWeight: "bold",
   },
   message: {
-    color: "yellow",
+    color: "white",
     textAlign: "center",
     fontWeight: "bold",
     marginTop: "10px",

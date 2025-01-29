@@ -1,38 +1,33 @@
-import "./style.css";
-import img from "./Image.png";
-import bank from "./bank.png";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import img from "./Image.png";
+import bank from "./bank.png";
 
 const Login = () => {
-  const defaultUser = { username: "admin@gmail.com", password: "123abc" };
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const storedCredentials = localStorage.getItem("userCredentials");
-    if (!storedCredentials) {
-      localStorage.setItem("userCredentials", JSON.stringify(defaultUser));
-    }
-  }, []);
-
   const handleLogin = (event) => {
     event.preventDefault();
 
-    const storedCredentials = JSON.parse(localStorage.getItem("userCredentials"));
+    const adminAccounts = JSON.parse(localStorage.getItem("adminAccounts")) || [];
+    const userAccounts = JSON.parse(localStorage.getItem("userAccounts")) || [];
 
-    if (
-      storedCredentials.username === username &&
-      storedCredentials.password === password
-    ) {
-      setMessage(`Welcome, ${username}! Login successful.`);
+    const admin = adminAccounts.find(
+      (acc) => acc.email === username && acc.password === password
+    );
+    const user = userAccounts.find(
+      (acc) => acc.email === username && acc.password === password
+    );
 
-      setTimeout(() => {
-        navigate("/home");
-      }, 1500);
+    if (admin) {
+      setMessage(`Welcome, ${username}! Admin login successful.`);
+      setTimeout(() => navigate("/home"), 1500);
+    } else if (user) {
+      setMessage(`Welcome, ${username}! User login successful.`);
+      setTimeout(() => navigate("/Usersidebar"), 1500);
     } else {
       setMessage("Invalid username or password. Please try again.");
     }
@@ -96,26 +91,24 @@ const styles = {
     display: "flex",
     flexDirection: "row",
     height: "100vh",
-    // backgroundColor: "#f8f9fa",
     position: "relative",
   },
   rightSide: {
     flex: 1,
     padding: "40px",
-    paddingRight:"500px",
+    paddingRight: "500px",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    backgroundImage: `url(${bank})`, // Correct image path here
-    backgroundSize: "cover", // Ensures the background image covers the whole div
-    backgroundPosition: "center", // Centers the background image
-    backgroundRepeat: "no-repeat", // Prevents the image from repeating
+    backgroundImage: `url(${bank})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
   },
   form: {
     width: "300px",
     padding: "40px",
-    paddingRight:"100px",
-    // backgroundColor: "white",
+    paddingRight: "100px",
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
     borderRadius: "10px",
   },
@@ -151,6 +144,7 @@ const styles = {
     border: "none",
     borderRadius: "5px",
     cursor: "pointer",
+    marginLeft:"10px",
   },
 };
 
