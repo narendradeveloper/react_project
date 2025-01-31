@@ -3,14 +3,14 @@ import { useNavigate } from "react-router-dom";
 
 import img from "./Image.png";
 
-const Logout= () => {
+const Logout = () => {
   const navigate = useNavigate();
   const [adminData, setAdminData] = useState({ name: "", email: "", password: "", confirmPassword: "" });
   const [userData, setUserData] = useState({ name: "", email: "", password: "", confirmPassword: "" });
   const [message, setMessage] = useState("");
-  const [activeForm, setActiveForm] = useState(null);
-  const [isHoveredAdmin, setIsHoveredAdmin] = useState(false);  // Track hover for admin button
-  const [isHoveredUser, setIsHoveredUser] = useState(false);  // Track hover for user button
+  const [activeForm, setActiveForm] = useState("admin");  // Track which form is active
+  const [isHoveredAdmin, setIsHoveredAdmin] = useState(false);
+  const [isHoveredUser, setIsHoveredUser] = useState(false);
 
   useEffect(() => {
     if (!localStorage.getItem("adminAccounts")) localStorage.setItem("adminAccounts", JSON.stringify([]));
@@ -42,6 +42,9 @@ const Logout= () => {
     accounts.push(data);
     localStorage.setItem(key, JSON.stringify(accounts));
     setMessage(" Registration successful! Redirecting to login...");
+
+    // Save registration status to localStorage
+    localStorage.setItem(`${type}Registered`, "true");
     
     setTimeout(() => navigate(type === "admin" ? "/login" : "/loginuser"));
   };
@@ -63,13 +66,21 @@ const Logout= () => {
   };
 
   const handleFormSwitch = (type) => {
-    setActiveForm(type);
-    setMessage("");
+    setMessage("");  // Clear message when switching forms
+
+    const isAlreadyRegistered = localStorage.getItem(`${type}Registered`);
+    
+    // If already registered, navigate directly to login page
+    if (isAlreadyRegistered) {
+      navigate(type === "admin" ? "/login" : "/loginuser");
+    } else {
+      setActiveForm(type);
+    }
   };
 
   const handleMouseEnterAdmin = () => setIsHoveredAdmin(true);
   const handleMouseLeaveAdmin = () => setIsHoveredAdmin(false);
-  
+
   const handleMouseEnterUser = () => setIsHoveredUser(true);
   const handleMouseLeaveUser = () => setIsHoveredUser(false);
 
@@ -84,7 +95,7 @@ const Logout= () => {
             <input type="password" placeholder="Password" style={styles.input} onChange={(e) => setAdminData({ ...adminData, password: e.target.value })} />
             <input type="password" placeholder="Confirm-password" style={styles.input} onChange={(e) => setAdminData({ ...adminData, confirmPassword: e.target.value })} />
             <button
-              style={isHoveredAdmin ? styles.buttonHover : styles.button} 
+              style={isHoveredAdmin ? styles.buttonHover : styles.button}
               onClick={() => register("admin")}
               onMouseEnter={handleMouseEnterAdmin}
               onMouseLeave={handleMouseLeaveAdmin}
@@ -93,9 +104,9 @@ const Logout= () => {
             </button>
           </div>
           <p style={styles.signInText}>
-            Already have an account? <span onClick={() => { handleFormSwitch("admin"); signIn("admin"); }} style={styles.link}>Sign In</span>
+            Already have an account? <span onClick={() => { handleFormSwitch("admin"); }} style={styles.link}>Sign In</span>
           </p>
-          {activeForm === "admin" && message && <p style={styles.message}>{message}</p>}
+          {message && <p style={styles.message}>{message}</p>}
         </div>
 
         <div style={styles.container}>
@@ -106,7 +117,7 @@ const Logout= () => {
             <input type="password" placeholder="Password" style={styles.input} onChange={(e) => setUserData({ ...userData, password: e.target.value })} />
             <input type="password" placeholder="Confirm-password" style={styles.input} onChange={(e) => setUserData({ ...userData, confirmPassword: e.target.value })} />
             <button
-              style={isHoveredUser ? styles.buttonHover : styles.button} 
+              style={isHoveredUser ? styles.buttonHover : styles.button}
               onClick={() => register("user")}
               onMouseEnter={handleMouseEnterUser}
               onMouseLeave={handleMouseLeaveUser}
@@ -115,9 +126,9 @@ const Logout= () => {
             </button>
           </div>
           <p style={styles.signInText}>
-            Already have an account? <span onClick={() => { handleFormSwitch("user"); signIn("user"); }} style={styles.link}>Sign In</span>
+            Already have an account? <span onClick={() => { handleFormSwitch("user"); }} style={styles.link}>Sign In</span>
           </p>
-          {activeForm === "user" && message && <p style={styles.message}>{message}</p>}
+          {message && <p style={styles.message}>{message}</p>}
         </div>
       </div>
     </div>
@@ -164,28 +175,28 @@ const styles = {
     margin: "auto",
   },
   button: {
-    width: "80%",
+    width: "30%",
     height: "40px",
-    backgroundColor: "#f1eae7",
+    backgroundColor: "#d5249a",
     borderRadius: "10px",
     border: "none",
     fontSize: "18px",
     fontWeight: "bold",
     cursor: "pointer",
-    marginLeft: "35px",
+    marginLeft: "125px",
+    textAlign: "center",
     transition: "background-color 0.3s, transform 0.2s",
   },
   buttonHover: {
-    width: "80%",
+    width: "30%",
     height: "40px",
-    backgroundColor: "red", // Hover color
+    backgroundColor: "green",
     borderRadius: "10px",
     border: "none",
     fontSize: "18px",
-    fontWeight: "bold",
     cursor: "pointer",
-    marginLeft: "35px",
-    transform: "scale(1.05)", // Hover effect
+    marginLeft: "125px",
+    transform: "scale(1.05)",
   },
   signInText: {
     paddingLeft: "30px",

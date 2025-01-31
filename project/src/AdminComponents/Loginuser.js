@@ -70,7 +70,7 @@ const LoginUser = () => {
             type="submit"
             id="sub"
             value="LOGIN"
-            style={styles.submitButton}
+            style={styles.submitButton }
           />
         </form>
       </div>
@@ -102,7 +102,9 @@ const styles = {
     padding: "40px",
     paddingRight: "100px",
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-    borderRadius: "10px",
+    borderRadius: "50px",
+backgroundColor:"#ff9a68"   , 
+
   },
   logo: {
     height: "100px",
@@ -114,12 +116,13 @@ const styles = {
   title: {
     textAlign: "center",
     marginBottom: "20px",
-    color: "#343a40",
+    color: "white",
   },
   label: {
     display: "block",
     marginBottom: "5px",
     fontWeight: "bold",
+    marginLeft:"20px",
   },
   input: {
     width: "100%",
@@ -128,16 +131,18 @@ const styles = {
     border: "1px solid #ccc",
     borderRadius: "5px",
     font: "caption",
+    marginLeft:"20px",
   },
   submitButton: {
-    width: "100%",
+    width: "50%",
     padding: "10px",
     backgroundColor: "#ddb722",
     color: "white",
     border: "none",
     borderRadius: "5px",
     cursor: "pointer",
-    marginLeft:"10px",
+    marginLeft:"100px",
+    transform: "scale(1.05)", 
   },
 };
 

@@ -110,7 +110,8 @@ const styles = {
     padding: "40px",
     paddingRight: "100px",
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-    borderRadius: "10px",
+    borderRadius: "50px",
+    backgroundColor:"#be7956"
   },
   logo: {
     height: "80px",
@@ -121,7 +122,7 @@ const styles = {
   title: {
     textAlign: "center",
     marginBottom: "20px",
-    color: "#343a40",
+    color: "white",
   },
   label: {
     display: "block",
@@ -137,14 +138,14 @@ const styles = {
     font: "caption",
   },
   submitButton: {
-    width: "100%",
+    width: "50%",
     padding: "10px",
     backgroundColor: "#4CAF50",
     color: "white",
     border: "none",
     borderRadius: "5px",
     cursor: "pointer",
-    marginLeft:"10px",
+    marginLeft:"100px",
   },
 };
 
