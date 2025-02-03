@@ -6,7 +6,7 @@ const Admin = () => {
   const [adminData, setAdminData] = useState({ name: "", email: "", password: "", confirmPassword: "" });
   const [userData, setUserData] = useState({ name: "", email: "", password: "", confirmPassword: "" });
   const [message, setMessage] = useState("");
-  const [activeForm, setActiveForm] = useState("admin");  // Track which form is active
+  const [activeForm, setActiveForm] = useState("admin"); 
   const [isHoveredAdmin, setIsHoveredAdmin] = useState(false);
   const [isHoveredUser, setIsHoveredUser] = useState(false);
 
@@ -16,10 +16,9 @@ const Admin = () => {
   }, []);
 
   const register = (type) => {
-    setMessage("");  // Clear previous message
+    setMessage("");  
     const data = type === "admin" ? adminData : userData;
 
-    // Only show the message when details are provided
     if (data.name || data.email || data.password || data.confirmPassword) {
       if (!data.name || !data.email || !data.password || !data.confirmPassword) {
         setMessage("All fields are required!");
@@ -41,26 +40,26 @@ const Admin = () => {
 
       accounts.push(data);
       localStorage.setItem(key, JSON.stringify(accounts));
-      setMessage("Registration successful! Redirecting to login...");
-
+      setMessage("Registration successful! You can now sign in.");
       localStorage.setItem(`${type}Registered`, "true");
-      
-      setTimeout(() => navigate(type === "admin" ? "/login" : "/loginuser"));
+
+     
+      if (type === "admin") {
+        navigate("/login");  
+      } else {
+        navigate("/loginuser");  
+      }
     } else {
       setMessage("Please enter the registration details.");
     }
   };
 
   const handleFormSwitch = (type) => {
-    setMessage("");  // Clear message when switching forms
-
-    const isAlreadyRegistered = localStorage.getItem(`${type}Registered`);
-    
-    // If already registered, navigate directly to login page
-    if (isAlreadyRegistered) {
-      navigate(type === "admin" ? "/login" : "/loginuser");
+    setMessage("");  
+    if (type === "user") {
+      setActiveForm("user");
     } else {
-      setActiveForm(type);
+      setActiveForm("admin");
     }
   };
 
@@ -73,49 +72,129 @@ const Admin = () => {
   return (
     <div style={styles.firstheader}>
       <div style={styles.wrapper}>
-        <div style={styles.container}>
-          <div style={styles.user}>
-            <h3 style={styles.header}> ADMIN REGISTER ACCOUNT</h3>
-            <input type="text" placeholder="Name" style={styles.input} onChange={(e) => setAdminData({ ...adminData, name: e.target.value })} />
-            <input type="email" placeholder="Email..." style={styles.input} onChange={(e) => setAdminData({ ...adminData, email: e.target.value })} />
-            <input type="password" placeholder="Password" style={styles.input} onChange={(e) => setAdminData({ ...adminData, password: e.target.value })} />
-            <input type="password" placeholder="Confirm-password" style={styles.input} onChange={(e) => setAdminData({ ...adminData, confirmPassword: e.target.value })} />
-            <button
-              style={isHoveredAdmin ? styles.buttonHover : styles.button}
-              onClick={() => register("admin")}
-              onMouseEnter={handleMouseEnterAdmin}
-              onMouseLeave={handleMouseLeaveAdmin}
-            >
-              REGISTER
-            </button>
+        {/* Admin Form */}
+        {activeForm === "admin" && (
+          <div style={styles.container}>
+            <div style={styles.user}>
+              <h3 style={styles.header}> ADMIN REGISTER ACCOUNT</h3>
+              <input
+                type="text"
+                placeholder="Name"
+                style={styles.input}
+                onChange={(e) => setAdminData({ ...adminData, name: e.target.value })}
+              />
+              <input
+                type="email"
+                placeholder="Email..."
+                style={styles.input}
+                onChange={(e) => setAdminData({ ...adminData, email: e.target.value })}
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                style={styles.input}
+                onChange={(e) => setAdminData({ ...adminData, password: e.target.value })}
+              />
+              <input
+                type="password"
+                placeholder="Confirm-password"
+                style={styles.input}
+                onChange={(e) => setAdminData({ ...adminData, confirmPassword: e.target.value })}
+              />
+              <button
+                style={isHoveredAdmin ? styles.buttonHover : styles.button}
+                onClick={() => register("admin")}
+                onMouseEnter={handleMouseEnterAdmin}
+                onMouseLeave={handleMouseLeaveAdmin}
+              >
+                REGISTER
+              </button>
+              <div style={styles.formSwitchButtons}>
+                <button
+                  style={styles.dp}
+                  onClick={() => handleFormSwitch("admin")} 
+                >
+                  Switch Admin
+                </button>
+                <button
+                  style={styles.dp}
+                  onClick={() => handleFormSwitch("user")} 
+                >
+                  Switch User
+                </button>
+              </div>
+              <p style={styles.signInText}>
+                Already have an account?{" "}
+                <span onClick={() => navigate("/login")} style={styles.link}>
+                  Sign In
+                </span>
+              </p>
+              {message && <p style={styles.message}>{message}</p>}
+            </div>
           </div>
-          <p style={styles.signInText}>
-            Already have an account? <span onClick={() => { handleFormSwitch("admin"); }} style={styles.link}>Sign In</span>
-          </p>
-          {message && <p style={styles.message}>{message}</p>}
-        </div>
+        )}
 
-        <div style={styles.container}>
-          <div style={styles.user}>
-            <h3 style={styles.header}> USER REGISTER ACCOUNT</h3>
-            <input type="text" placeholder="Name" style={styles.input} onChange={(e) => setUserData({ ...userData, name: e.target.value })} />
-            <input type="email" placeholder="Email..." style={styles.input} onChange={(e) => setUserData({ ...userData, email: e.target.value })} />
-            <input type="password" placeholder="Password" style={styles.input} onChange={(e) => setUserData({ ...userData, password: e.target.value })} />
-            <input type="password" placeholder="Confirm-password" style={styles.input} onChange={(e) => setUserData({ ...userData, confirmPassword: e.target.value })} />
-            <button
-              style={isHoveredUser ? styles.buttonHover : styles.button}
-              onClick={() => register("user")}
-              onMouseEnter={handleMouseEnterUser}
-              onMouseLeave={handleMouseLeaveUser}
-            >
-              REGISTER
-            </button>
+        {/* User Form */}
+        {activeForm === "user" && (
+          <div style={styles.container}>
+            <div style={styles.user}>
+              <h3 style={styles.header}> USER REGISTER ACCOUNT</h3>
+              <input
+                type="text"
+                placeholder="Name"
+                style={styles.input}
+                onChange={(e) => setUserData({ ...userData, name: e.target.value })}
+              />
+              <input
+                type="email"
+                placeholder="Email..."
+                style={styles.input}
+                onChange={(e) => setUserData({ ...userData, email: e.target.value })}
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                style={styles.input}
+                onChange={(e) => setUserData({ ...userData, password: e.target.value })}
+              />
+              <input
+                type="password"
+                placeholder="Confirm-password"
+                style={styles.input}
+                onChange={(e) => setUserData({ ...userData, confirmPassword: e.target.value })}
+              />
+              <button
+                style={isHoveredUser ? styles.buttonHover : styles.button}
+                onClick={() => register("user")}
+                onMouseEnter={handleMouseEnterUser}
+                onMouseLeave={handleMouseLeaveUser}
+              >
+                REGISTER
+              </button>
+              <div style={styles.formSwitchButtons}>
+                <button
+                  style={styles.dp}
+                  onClick={() => handleFormSwitch("admin")} 
+                >
+                  Switch Admin
+                </button>
+                <button
+                  style={styles.dp }
+                  onClick={() => handleFormSwitch("user")}
+                >
+                  Switch User
+                </button>
+              </div>
+              <p style={styles.signInText}>
+                Already have an account?{" "}
+                <span onClick={() => navigate("/loginuser")} style={styles.link}>
+                  Sign In
+                </span>
+              </p>
+              {message && <p style={styles.message}>{message}</p>}
+            </div>
           </div>
-          <p style={styles.signInText}>
-            Already have an account? <span onClick={() => { handleFormSwitch("user"); }} style={styles.link}>Sign In</span>
-          </p>
-          {message && <p style={styles.message}>{message}</p>}
-        </div>
+        )}
       </div>
     </div>
   );
@@ -131,6 +210,26 @@ const styles = {
     padding: "20px",
     minHeight: "100vh",
     backgroundImage: "linear-gradient(to bottom right, red, yellow)",
+  },
+  formSwitchButtons: {
+    display: "flex",
+    justifyContent: "center",
+    gap: "40px",
+    fontSize: "18px",
+    fontWeight: "bold",
+    color:"white",
+  },
+  dp: {
+    width: "100%",
+    height: "40px",
+    cursor: "pointer",
+    borderRadius: "10px",
+    border: "none",
+    backgroundColor: "green",
+    color:"white",
+    fontSize:"18px",
+    fontWeight:"caption",
+    transform:"scale(1.05)",
   },
   container: {
     backgroundColor: "#a84517",
