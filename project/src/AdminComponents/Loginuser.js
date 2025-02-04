@@ -25,6 +25,11 @@ const LoginUser = () => {
     }
   };
 
+  // Function for handling guest login
+  const handleGuestLogin = () => {
+    navigate("/Usersidebar");
+  };
+
   return (
     <div style={styles.container}>
       <div style={styles.rightSide}>
@@ -66,12 +71,21 @@ const LoginUser = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <input
-            type="submit"
-            id="sub"
-            value="LOGIN"
-            style={styles.submitButton}
-          />
+          <div style={styles.dp}>
+            <input
+              type="submit"
+              id="sub"
+              value="LOGIN"
+              style={styles.submitButton}
+            />
+            <button
+              type="button"
+              style={styles.guest}
+              onClick={handleGuestLogin} // Trigger guest login
+            >
+              GUEST LOGIN
+            </button>
+          </div>
         </form>
       </div>
     </div>
@@ -85,6 +99,21 @@ const styles = {
     position: "relative",
     justifyContent: "center",
     alignItems: "center",
+  },
+  dp: {
+    display: "flex",
+    gap: "30px",
+  },
+  guest: {
+    width: "40%",
+    height: "100%",
+    backgroundColor: "#ddb722",
+    cursor: "pointer",
+    border: "none",
+    borderRadius: "5px",
+    color: "white",
+    textAlign: "center",
+    font:"large",
   },
   rightSide: {
     display: "flex",
@@ -100,17 +129,15 @@ const styles = {
     width: "100%",
   },
   form: {
-    width: "100%",
+    width: "50%",
     maxWidth: "400px",
     padding: "40px",
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-    borderRadius: "10px",
-    backgroundColor: "#ff9a68",
+    borderRadius: "30px",
+    backgroundColor: "#b67352",
     display: "flex",
     flexDirection: "column",
-    // alignItems: "center",
-    gap:"5px",
-
+    gap: "5px",
   },
   logo: {
     height: "100px",
@@ -128,9 +155,8 @@ const styles = {
     display: "block",
     marginBottom: "5px",
     fontWeight: "bold",
-    justifyContent:"start",
-    textAlign:"start",
-
+    justifyContent: "start",
+    textAlign: "start",
   },
   input: {
     width: "80%",
@@ -149,13 +175,9 @@ const styles = {
     border: "none",
     borderRadius: "5px",
     cursor: "pointer",
-    marginLeft: "25%",
     transform: "scale(1.05)",
-    gap:"5px",
-
+    gap: "5px",
   },
-
-  // Media Queries for Responsiveness
   "@media (max-width: 768px)": {
     container: {
       flexDirection: "column",
@@ -168,7 +190,7 @@ const styles = {
     form: {
       padding: "20px",
       maxWidth: "100%",
-      boxShadow: "none", 
+      boxShadow: "none",
     },
     submitButton: {
       width: "80%",
@@ -179,7 +201,6 @@ const styles = {
       width: "80px",
     },
   },
-
   "@media (max-width: 480px)": {
     container: {
       flexDirection: "column",
@@ -191,7 +212,7 @@ const styles = {
     form: {
       padding: "15px",
       width: "90%",
-      boxShadow: "none", 
+      boxShadow: "none",
     },
     submitButton: {
       width: "90%",

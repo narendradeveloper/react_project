@@ -40,23 +40,27 @@ const Login = () => {
       setTimeout(() => navigate("/home"), 1500);
     } else if (user) {
       setMessage(`Welcome, ${username}! User login successful.`);
-      setTimeout(() => navigate("/Usersidebar"), 1500);
+      setTimeout(() => navigate("/Home"), 1500);
     } else {
       setMessage("Invalid username or password. Please try again.");
     }
   };
 
+  const handleGuestLogin = () => {
+    navigate("/Home");
+  };
+
   const styles = {
     container: {
       display: "flex",
-      flexDirection: windowWidth <= 768 ? "column" : "row", // Responsive layout based on window width
+      flexDirection: windowWidth <= 768 ? "column" : "row",
       height: "100vh",
       position: "relative",
     },
     rightSide: {
       flex: 1,
-      padding: windowWidth <= 768 ? "20px" : "40px", // Adjust padding on smaller screens
-      paddingRight: windowWidth <= 768 ? "0" : "500px", // Adjust padding on smaller screens
+      padding: "40px",
+      paddingRight: windowWidth <= 708 ? "0" : "500px",
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
@@ -66,15 +70,15 @@ const Login = () => {
       backgroundRepeat: "no-repeat",
     },
     form: {
-      width: windowWidth <= 768 ? "90%" : "300px", // Form width adjusts based on screen size
-      padding: windowWidth <= 768 ? "20px" : "40px", // Padding adjusts for smaller screens
-      paddingRight: windowWidth <= 768 ? "0" : "100px", // Adjust padding on smaller screens
+      width: windowWidth <= 768 ? "90%" : "300px",
+      padding: windowWidth <= 768 ? "20px" : "40px",
+      paddingRight: windowWidth <= 768 ? "0" : "100px",
       boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-      borderRadius: "50px",
+      borderRadius: "30px",
       backgroundColor: "#be7956",
     },
     logo: {
-      height: windowWidth <= 480 ? "50px" : "80px", // Adjust logo size on very small screens
+      height: windowWidth <= 480 ? "50px" : "80px",
       display: "block",
       margin: "0 auto 20px auto",
       borderRadius: "50%",
@@ -97,15 +101,27 @@ const Login = () => {
       borderRadius: "5px",
       font: "caption",
     },
+    gest: {
+      backgroundColor: "#4CAF50",
+      width: "40%",
+      border: "none",
+      borderRadius: "5px",
+      color: "white",
+      cursor: "pointer",
+    },
+    dp: {
+      display: "flex",
+      gap: "20px",
+    },
     submitButton: {
-      width: windowWidth <= 768 ? "70%" : "50%", // Button width adjusts on smaller screens
+      width: "40%",
       padding: "10px",
       backgroundColor: "#4CAF50",
       color: "white",
       border: "none",
       borderRadius: "5px",
       cursor: "pointer",
-      marginLeft: windowWidth <= 768 ? "15%" : "100px", // Adjust button margin on smaller screens
+      marginLeft: "10px",
     },
   };
 
@@ -150,12 +166,21 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <input
-            type="submit"
-            id="sub"
-            value="LOGIN"
-            style={styles.submitButton}
-          />
+          <div style={styles.dp}>
+            <input
+              type="submit"
+              id="sub"
+              value="LOGIN"
+              style={styles.submitButton}
+            />
+            <button
+              type="button" 
+              style={styles.gest}
+              onClick={handleGuestLogin} 
+            >
+              GUEST LOGIN
+            </button>
+          </div>
         </form>
       </div>
     </div>

@@ -8,19 +8,19 @@ const Sidebar = ({ activePage, setActivePage }) => {
 
   const handleNavigation = (page) => {
     if (page === "Logout") {
-      setShowLogoutConfirmation(true); // Show the confirmation dialog
+      setShowLogoutConfirmation(true); 
     } else {
       setActivePage(page);
     }
   };
 
   const confirmLogout = () => {
-    setShowLogoutConfirmation(false); // Close the modal
-    navigate("/admin"); // Log the user out (navigate to admin page)
+    setShowLogoutConfirmation(false); 
+    navigate("/admin"); 
   };
 
   const cancelLogout = () => {
-    setShowLogoutConfirmation(false); // Close the modal
+    setShowLogoutConfirmation(false); 
   };
 
   return (
