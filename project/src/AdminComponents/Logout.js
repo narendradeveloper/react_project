@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import img from "./Image.png";
 
-const Logout = () => {
+const Logout =  () => {
   const navigate = useNavigate();
   const [adminData, setAdminData] = useState({ name: "", email: "", password: "", confirmPassword: "" });
   const [userData, setUserData] = useState({ name: "", email: "", password: "", confirmPassword: "" });
@@ -181,7 +181,7 @@ const Logout = () => {
                   Switch Admin
                 </button>
                 <button
-                  style={styles.dp}
+                  style={styles.dp }
                   onClick={() => handleFormSwitch("user")}
                 >
                   Switch User
@@ -219,7 +219,7 @@ const styles = {
     gap: "40px",
     fontSize: "18px",
     fontWeight: "bold",
-    color:"white",
+    color: "white",
   },
   dp: {
     width: "100%",
@@ -228,9 +228,9 @@ const styles = {
     borderRadius: "10px",
     border: "none",
     backgroundColor: "green",
-    color:"white",
-    fontSize:"18px",
-    fontWeight:"caption",
+    color: "white",
+    font:"normal",
+    fontSize: "17px",
   },
   container: {
     backgroundColor: "#a84517",
@@ -261,7 +261,7 @@ const styles = {
     margin: "auto",
   },
   button: {
-    width: "40%",
+    width: "42%",
     height: "40px",
     backgroundColor: "#d5249a",
     borderRadius: "10px",
@@ -269,7 +269,7 @@ const styles = {
     fontSize: "18px",
     fontWeight: "bold",
     cursor: "pointer",
-    marginLeft: "95px",
+    marginLeft: "93px",
     textAlign: "center",
     transition: "background-color 0.3s, transform 0.2s",
   },
@@ -300,7 +300,65 @@ const styles = {
     fontWeight: "bold",
     marginTop: "10px",
   },
-};
 
+  '@media (max-width: 768px)': {
+    wrapper: {
+      flexDirection: "column",
+      gap: "30px",
+    },
+    container: {
+      width: "90%", 
+      padding: "15px",
+    },
+    input: {
+      width: "90%", 
+    },
+    button: {
+      width: "80%", 
+      marginLeft: "10px",
+    },
+    buttonHover: {
+      width: "80%", 
+    },
+    dp: {
+      width: "100%", 
+    },
+    header: {
+      fontSize: "18px", 
+    },
+    signInText: {
+      fontSize: "14px", 
+    },
+  },
+
+  '@media (max-width: 480px)': {
+    container: {
+      width: "95%", 
+      padding: "10px",
+    },
+    input: {
+      width: "90%",
+    },
+    button: {
+      width: "75%",
+    },
+    buttonHover: {
+      width: "75%",
+    },
+    formSwitchButtons: {
+      flexDirection: "column", 
+      gap: "10px",
+    },
+    dp: {
+      width: "100%", 
+    },
+    header: {
+      fontSize: "16px", 
+    },
+    signInText: {
+      fontSize: "12px", 
+    },
+  },
+};
 
 export default Logout;

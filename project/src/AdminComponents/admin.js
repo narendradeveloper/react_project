@@ -227,9 +227,8 @@ const styles = {
     border: "none",
     backgroundColor: "green",
     color: "white",
-    fontSize: "18px",
-    fontWeight: "caption",
-    transform: "scale(1.05)",
+    font:"normal",
+    fontSize: "17px",
   },
   container: {
     backgroundColor: "#a84517",
