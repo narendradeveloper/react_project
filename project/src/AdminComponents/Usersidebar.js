@@ -13,7 +13,8 @@ const Usersidebar = () => {
   });
 
   const [activePage, setActivePage] = useState("home");
-  const [activeButton, setActiveButton] = useState(""); 
+  const [activeButton, setActiveButton] = useState("");
+  const [showLogoutConfirmation, setShowLogoutConfirmation] = useState(false); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,11 +27,20 @@ const Usersidebar = () => {
       return updatedAccounts;
     });
     setActivePage("home");
-    setActiveButton("home"); 
+    setActiveButton("home");
   };
 
   const handleLogout = () => {
-    navigate("/admin");
+    setShowLogoutConfirmation(true); 
+  };
+
+  const confirmLogout = () => {
+    navigate("/admin"); 
+    setShowLogoutConfirmation(false); 
+  };
+
+  const cancelLogout = () => {
+    setShowLogoutConfirmation(false); 
   };
 
   const renderContent = () => {
@@ -52,7 +62,7 @@ const Usersidebar = () => {
 
   const handleButtonClick = (page) => {
     setActivePage(page);
-    setActiveButton(page); 
+    setActiveButton(page);
   };
 
   return (
@@ -119,12 +129,31 @@ const Usersidebar = () => {
           >
             Withdraw
           </div>
-          <div onClick={handleLogout} style={styles.sidebarItem}>
+          <div
+            onClick={handleLogout}
+            style={{
+              ...styles.sidebarItem,
+              backgroundColor: activeButton === "logout" ? "#ff8c1a" : "transparent",
+              color: activeButton === "logout" ? "white" : "black",
+            }}
+          >
             Logout
           </div>
         </div>
       </div>
-      <div style={{ marginLeft: "250px", padding: "20px" }}>{renderContent()}</div>
+      <div style={{ marginLeft: "250px", padding: "20px" }}>
+        {renderContent()}
+      </div>
+
+      {showLogoutConfirmation && (
+        <div style={styles.modal}>
+          <div style={styles.modalContent}>
+            <p>Are you sure you want to log out?</p>
+            <button onClick={confirmLogout} style={styles.confirmButton}>Yes</button>
+            <button onClick={cancelLogout} style={styles.cancelButton}>Cancel</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
@@ -139,6 +168,40 @@ const styles = {
     borderRadius: "5px",
     font: "caption",
     backgroundColor: "transparent",
+  },
+  modal: {
+    position: "fixed",
+    top: "0",
+    left: "0",
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalContent: {
+    backgroundColor: "white",
+    padding: "20px",
+    borderRadius: "8px",
+    textAlign: "center",
+  },
+  confirmButton: {
+    backgroundColor: "#4CAF50",
+    color: "white",
+    padding: "10px 20px",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+    marginRight: "10px",
+  },
+  cancelButton: {
+    backgroundColor: "#f44336",
+    color: "white",
+    padding: "10px 20px",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
   },
 };
 

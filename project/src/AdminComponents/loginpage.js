@@ -7,7 +7,20 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
+
+  // Handle window resizing
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -31,6 +44,69 @@ const Login = () => {
     } else {
       setMessage("Invalid username or password. Please try again.");
     }
+  };
+
+  const styles = {
+    container: {
+      display: "flex",
+      flexDirection: windowWidth <= 768 ? "column" : "row", // Responsive layout based on window width
+      height: "100vh",
+      position: "relative",
+    },
+    rightSide: {
+      flex: 1,
+      padding: windowWidth <= 768 ? "20px" : "40px", // Adjust padding on smaller screens
+      paddingRight: windowWidth <= 768 ? "0" : "500px", // Adjust padding on smaller screens
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      backgroundImage: `url(${bank})`,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+    },
+    form: {
+      width: windowWidth <= 768 ? "90%" : "300px", // Form width adjusts based on screen size
+      padding: windowWidth <= 768 ? "20px" : "40px", // Padding adjusts for smaller screens
+      paddingRight: windowWidth <= 768 ? "0" : "100px", // Adjust padding on smaller screens
+      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+      borderRadius: "50px",
+      backgroundColor: "#be7956",
+    },
+    logo: {
+      height: windowWidth <= 480 ? "50px" : "80px", // Adjust logo size on very small screens
+      display: "block",
+      margin: "0 auto 20px auto",
+      borderRadius: "50%",
+    },
+    title: {
+      textAlign: "center",
+      marginBottom: "20px",
+      color: "white",
+    },
+    label: {
+      display: "block",
+      marginBottom: "5px",
+      fontWeight: "bold",
+    },
+    input: {
+      width: "90%",
+      padding: "10px",
+      marginBottom: "15px",
+      border: "1px solid #ccc",
+      borderRadius: "5px",
+      font: "caption",
+    },
+    submitButton: {
+      width: windowWidth <= 768 ? "70%" : "50%", // Button width adjusts on smaller screens
+      padding: "10px",
+      backgroundColor: "#4CAF50",
+      color: "white",
+      border: "none",
+      borderRadius: "5px",
+      cursor: "pointer",
+      marginLeft: windowWidth <= 768 ? "15%" : "100px", // Adjust button margin on smaller screens
+    },
   };
 
   return (
@@ -84,69 +160,6 @@ const Login = () => {
       </div>
     </div>
   );
-};
-
-const styles = {
-  container: {
-    display: "flex",
-    flexDirection: "row",
-    height: "100vh",
-    position: "relative",
-  },
-  rightSide: {
-    flex: 1,
-    padding: "40px",
-    paddingRight: "500px",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    backgroundImage: `url(${bank})`,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-  },
-  form: {
-    width: "300px",
-    padding: "40px",
-    paddingRight: "100px",
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-    borderRadius: "50px",
-    backgroundColor:"#be7956"
-  },
-  logo: {
-    height: "80px",
-    display: "block",
-    margin: "0 auto 20px auto",
-    borderRadius: "50%",
-  },
-  title: {
-    textAlign: "center",
-    marginBottom: "20px",
-    color: "white",
-  },
-  label: {
-    display: "block",
-    marginBottom: "5px",
-    fontWeight: "bold",
-  },
-  input: {
-    width: "100%",
-    padding: "10px",
-    marginBottom: "15px",
-    border: "1px solid #ccc",
-    borderRadius: "5px",
-    font: "caption",
-  },
-  submitButton: {
-    width: "50%",
-    padding: "10px",
-    backgroundColor: "#4CAF50",
-    color: "white",
-    border: "none",
-    borderRadius: "5px",
-    cursor: "pointer",
-    marginLeft:"100px",
-  },
 };
 
 export default Login;

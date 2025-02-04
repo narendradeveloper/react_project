@@ -88,7 +88,7 @@ const FundTransfer = ({ accountDetails, onTransfer }) => {
           onClick={handleTransfer}
           style={{
             ...styles.button,
-            backgroundColor: isHovered ? "darkblue" : "blue",
+            backgroundColor: isHovered ? "#ff9a68" : "#e97338",
           }}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}

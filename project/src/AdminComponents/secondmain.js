@@ -11,7 +11,7 @@ const Ain = ({ accountDetails, transactions }) => (
           <p>47290539482</p>
         </div>
         <div>
-          <h1 style={styles.balance}>{accountDetails.balance.toFixed(2)}</h1>
+          <h1 style={styles.balance}>RS.{accountDetails.balance.toFixed()}</h1>
         </div>
       </div>
       <h3>Transactions</h3>
@@ -20,7 +20,7 @@ const Ain = ({ accountDetails, transactions }) => (
           <li style={styles.transactionItem} key={index}>
             <span style={styles.transactionDate}>{transaction.date}</span>
             <span style={styles.transactionDescription}>{transaction.description}</span>
-            <span style={styles.transactionAmount}>{transaction.amount.toFixed(2)}</span>
+            <span style={styles.transactionAmount}>Rs. {transaction.amount.toFixed()}</span>
           </li>
         ))}
       </ul>

@@ -18,7 +18,7 @@ const BudgetPage = () => {
         {budgets.map((budget, index) => (
           <li key={index} style={styles.budgetItem}>
             <span>{budget.description}</span>
-            <span style={styles.amount}>{budget.amount}</span>
+            <span style={styles.amount}>Rs. {budget.amount}</span>
           </li>
         ))}
       </ul>
@@ -35,7 +35,7 @@ const styles = {
     overflow: "auto",
   },
   addBudgetBtn: {
-    background: "#0047ab",
+    background: "#f18047",
     color: "white",
     padding: "10px 20px",
     border: "none",
@@ -61,7 +61,7 @@ const styles = {
   },
   amount: {
     fontWeight: "bold",
-    color: "green",
+    color: "black",
     fontSize: "1rem",
   },
   

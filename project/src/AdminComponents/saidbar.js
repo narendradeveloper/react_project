@@ -1,14 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Sidebar = ({ activePage, setActivePage }) => {
   const navigate = useNavigate();
+  const [hoveredItem, setHoveredItem] = useState(null);
+  const [showLogoutConfirmation, setShowLogoutConfirmation] = useState(false); // For showing confirmation modal
 
   const handleNavigation = (page) => {
-    setActivePage(page);
     if (page === "Logout") {
-      navigate("/admin"); 
+      setShowLogoutConfirmation(true); // Show the confirmation dialog
+    } else {
+      setActivePage(page);
     }
+  };
+
+  const confirmLogout = () => {
+    setShowLogoutConfirmation(false); // Close the modal
+    navigate("/admin"); // Log the user out (navigate to admin page)
+  };
+
+  const cancelLogout = () => {
+    setShowLogoutConfirmation(false); // Close the modal
   };
 
   return (
@@ -21,22 +33,76 @@ const Sidebar = ({ activePage, setActivePage }) => {
             style={{
               ...styles.sidebarItem,
               fontWeight: activePage === page ? "bold" : "normal",
+              backgroundColor: hoveredItem === page ? "#ff8c1a" : "",
+              borderRadius: "10px",
+              color: hoveredItem === page ? "white" : "white",
             }}
             onClick={() => handleNavigation(page)}
+            onMouseEnter={() => setHoveredItem(page)}
+            onMouseLeave={() => setHoveredItem(null)}
           >
             {page}
           </li>
         ))}
       </ul>
+
+      {/* Confirmation Modal */}
+      {showLogoutConfirmation && (
+        <div style={styles.modal}>
+          <div style={styles.modalContent}>
+            <p>Are you sure you want to log out?</p>
+            <button onClick={confirmLogout} style={styles.confirmButton}>
+              Yes
+            </button>
+            <button onClick={cancelLogout} style={styles.cancelButton}>
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
 const styles = {
-  sidebar: { width: "200px", background: "#0047ab", color: "white", padding: "20px" },
+  sidebar: { width: "200px", background: "#e65c00", color: "black", padding: "20px" },
   sidebarHeading: { marginBottom: "20px" },
   sidebarList: { listStyleType: "none", padding: 0, fontSize: "large" },
-  sidebarItem: { margin: "10px 0", cursor: "pointer" },
+  sidebarItem: { margin: "1px 0", cursor: "pointer", padding: "8px" },
+  modal: {
+    position: "fixed",
+    top: "0",
+    left: "0",
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(0, 0, 0, 0.5)", // Transparent black background
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalContent: {
+    backgroundColor: "white",
+    padding: "20px",
+    borderRadius: "8px",
+    textAlign: "center",
+  },
+  confirmButton: {
+    backgroundColor: "#4CAF50",
+    color: "white",
+    padding: "10px 20px",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+    marginRight: "10px",
+  },
+  cancelButton: {
+    backgroundColor: "#f44336",
+    color: "white",
+    padding: "10px 20px",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+  },
 };
 
 export default Sidebar;

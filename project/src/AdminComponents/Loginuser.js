@@ -19,7 +19,7 @@ const LoginUser = () => {
 
     if (user) {
       setMessage(`Welcome, ${username}! User login successful.`);
-      setTimeout(() => navigate("/Usersidebar"), 1500);
+      setTimeout(() => navigate("/Usersidebar"));
     } else {
       setMessage("Invalid username or password. Please try again.");
     }
@@ -70,7 +70,7 @@ const LoginUser = () => {
             type="submit"
             id="sub"
             value="LOGIN"
-            style={styles.submitButton }
+            style={styles.submitButton}
           />
         </form>
       </div>
@@ -81,14 +81,12 @@ const LoginUser = () => {
 const styles = {
   container: {
     display: "flex",
-    flexDirection: "row",
     height: "100vh",
     position: "relative",
+    justifyContent: "center",
+    alignItems: "center",
   },
   rightSide: {
-    flex: 1,
-    padding: "40px",
-    paddingRight: "500px",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -96,19 +94,27 @@ const styles = {
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
+    height: "100%",
+    padding: "20px",
+    justifyContent: "center",
+    width: "100%",
   },
   form: {
-    width: "300px",
+    width: "100%",
+    maxWidth: "400px",
     padding: "40px",
-    paddingRight: "100px",
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-    borderRadius: "50px",
-backgroundColor:"#ff9a68"   , 
+    borderRadius: "10px",
+    backgroundColor: "#ff9a68",
+    display: "flex",
+    flexDirection: "column",
+    // alignItems: "center",
+    gap:"5px",
 
   },
   logo: {
     height: "100px",
-    width:"100px",
+    width: "100px",
     display: "block",
     margin: "0 auto 20px auto",
     borderRadius: "20px",
@@ -122,27 +128,79 @@ backgroundColor:"#ff9a68"   ,
     display: "block",
     marginBottom: "5px",
     fontWeight: "bold",
-    marginLeft:"20px",
+    justifyContent:"start",
+    textAlign:"start",
+
   },
   input: {
-    width: "100%",
+    width: "80%",
     padding: "10px",
     marginBottom: "15px",
     border: "1px solid #ccc",
     borderRadius: "5px",
     font: "caption",
-    marginLeft:"20px",
+    marginLeft: "0px",
   },
   submitButton: {
-    width: "50%",
+    width: "40%",
     padding: "10px",
     backgroundColor: "#ddb722",
     color: "white",
     border: "none",
     borderRadius: "5px",
     cursor: "pointer",
-    marginLeft:"100px",
-    transform: "scale(1.05)", 
+    marginLeft: "25%",
+    transform: "scale(1.05)",
+    gap:"5px",
+
+  },
+
+  // Media Queries for Responsiveness
+  "@media (max-width: 768px)": {
+    container: {
+      flexDirection: "column",
+      justifyContent: "flex-start",
+      alignItems: "center",
+    },
+    rightSide: {
+      padding: "15px",
+    },
+    form: {
+      padding: "20px",
+      maxWidth: "100%",
+      boxShadow: "none", 
+    },
+    submitButton: {
+      width: "80%",
+      marginLeft: "10%",
+    },
+    logo: {
+      height: "80px",
+      width: "80px",
+    },
+  },
+
+  "@media (max-width: 480px)": {
+    container: {
+      flexDirection: "column",
+      justifyContent: "flex-start",
+    },
+    rightSide: {
+      padding: "10px",
+    },
+    form: {
+      padding: "15px",
+      width: "90%",
+      boxShadow: "none", 
+    },
+    submitButton: {
+      width: "90%",
+      marginLeft: "5%",
+    },
+    logo: {
+      height: "70px",
+      width: "70px",
+    },
   },
 };
 
