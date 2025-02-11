@@ -60,7 +60,7 @@ const Login = () => {
     rightSide: {
       flex: 1,
       padding: "40px",
-      paddingRight: windowWidth <= 708 ? "0" : "500px",
+      // paddingRight: windowWidth <= 600 ? "0" : "100px",
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
@@ -70,11 +70,11 @@ const Login = () => {
       backgroundRepeat: "no-repeat",
     },
     form: {
-      width: windowWidth <= 768 ? "90%" : "300px",
-      padding: windowWidth <= 768 ? "20px" : "40px",
-      paddingRight: windowWidth <= 768 ? "0" : "100px",
+      width:  "160px",
+      padding:  "40px",
+      paddingRight:  "90px",
       boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-      borderRadius: "30px",
+      borderRadius: "20px",
       backgroundColor: "#be7956",
     },
     logo: {
@@ -94,7 +94,7 @@ const Login = () => {
       fontWeight: "bold",
     },
     input: {
-      width: "90%",
+      width: "auto",
       padding: "10px",
       marginBottom: "15px",
       border: "1px solid #ccc",
@@ -108,10 +108,11 @@ const Login = () => {
       borderRadius: "5px",
       color: "white",
       cursor: "pointer",
+      
     },
     dp: {
       display: "flex",
-      gap: "20px",
+      gap: "55px",
     },
     submitButton: {
       width: "40%",

@@ -116,6 +116,7 @@ const Admin = () => {
                 >
                   Switch Admin
                 </button>
+                
                 <button
                   style={styles.dp}
                   onClick={() => handleFormSwitch("user")} 
@@ -178,12 +179,16 @@ const Admin = () => {
                 >
                   Switch Admin
                 </button>
+              
                 <button
                   style={styles.dp }
                   onClick={() => handleFormSwitch("user")}
                 >
+                  
                   Switch User
                 </button>
+                
+                
               </div>
               <p style={styles.signInText}>
                 Already have an account?{" "}
