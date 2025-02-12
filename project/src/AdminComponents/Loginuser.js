@@ -25,7 +25,6 @@ const LoginUser = () => {
     }
   };
 
-  // Function for handling guest login
   const handleGuestLogin = () => {
     navigate("/Usersidebar");
   };
@@ -81,7 +80,7 @@ const LoginUser = () => {
             <button
               type="button"
               style={styles.guest}
-              onClick={handleGuestLogin} // Trigger guest login
+              onClick={handleGuestLogin} 
             >
               GUEST LOGIN
             </button>
@@ -129,8 +128,10 @@ const styles = {
     width: "100%",
   },
   form: {
-    width: "50%",
-    maxWidth: "400px",
+    width: "70%",
+    height:"auto",
+    maxWidth: "250px",
+    maxheight:"250px",
     padding: "40px",
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
     borderRadius: "30px",
@@ -159,7 +160,7 @@ const styles = {
     textAlign: "start",
   },
   input: {
-    width: "80%",
+    width: "",
     padding: "10px",
     marginBottom: "15px",
     border: "1px solid #ccc",
@@ -211,7 +212,7 @@ const styles = {
     },
     form: {
       padding: "15px",
-      width: "90%",
+      width: "80%",
       boxShadow: "none",
     },
     submitButton: {

@@ -30,7 +30,7 @@ const Ain = ({ accountDetails, transactions }) => (
 
 const styles = {
   container: {
-  //   // display: "flex",
+    display: "flex",
     justifyContent: "center",
     alignItems: "center",
     padding: "20px",

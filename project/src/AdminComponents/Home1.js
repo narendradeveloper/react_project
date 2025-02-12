@@ -53,7 +53,7 @@ const styles = {
     display: "flex",
     flexDirection: "row",
     height: "100vh",
-    width: "100%",
+    width: "auto",
   },
   mainContent: {
     flex: 1,

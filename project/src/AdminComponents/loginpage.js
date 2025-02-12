@@ -71,6 +71,7 @@ const Login = () => {
     },
     form: {
       width:  "160px",
+height:"400px",
       padding:  "40px",
       paddingRight:  "90px",
       boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
@@ -84,8 +85,9 @@ const Login = () => {
       borderRadius: "50%",
     },
     title: {
-      textAlign: "center",
-      marginBottom: "20px",
+      // textAlign: "center",
+      width:"110px",
+      marginBottom: "10px",
       color: "white",
     },
     label: {
