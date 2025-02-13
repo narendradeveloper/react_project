@@ -33,14 +33,15 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    padding: "20px",
     boxSizing: "border-box",
-    backgroundColor: "#f9f9f9", 
+    backgroundColor: "#f9f9f9",
+    
+    maxWidth: "800px", 
+    
   },
   main: {
     width: "100%",
-    maxWidth: "600px", 
-    padding: "20px",
+    padding: "10px", 
     boxSizing: "border-box",
     border: "1px solid #ccc",
     borderRadius: "10px",
@@ -51,7 +52,7 @@ const styles = {
     justifyContent: "space-between",
     alignItems: "center",
     flexWrap: "wrap",
-    marginBottom: "20px",
+    marginBottom: "40px",
   },
   accountType: {
     color: "gray",
@@ -76,13 +77,12 @@ const styles = {
     flexWrap: "wrap",
   },
   transactionDate: {
-    flex: 1,
-    minWidth: "100px",
+    flex: 3,
     textAlign: "left",
   },
   transactionDescription: {
     flex: 2,
-    minWidth: "150px",
+    minWidth: "15px",
     textAlign: "center",
   },
   transactionAmount: {
@@ -90,7 +90,11 @@ const styles = {
     minWidth: "100px",
     textAlign: "right",
   },
-  "@media (max-width: 768px)": {
+
+  "@media (max-width: 320px)": {
+    container: {
+      width: "10%", 
+    },
     accountInfo: {
       flexDirection: "column",
       alignItems: "flex-start",
@@ -103,12 +107,40 @@ const styles = {
     transactionItem: {
       flexDirection: "column",
       alignItems: "flex-start",
+      paddingBottom: "10px",
     },
     transactionDate: {
       marginBottom: "5px",
     },
     transactionDescription: {
       marginBottom: "5px",
+    },
+    transactionAmount: {
+      textAlign: "left",
+    },
+  },
+
+  "@media (max-width: 320px)": {
+    accountInfo: {
+      
+    },
+    balance: {
+      paddingLeft: "0",
+      fontSize: "1rem", 
+      marginBottom: "10px", 
+    },
+    transactionItem: {
+      flexDirection: "column",
+      alignItems: "flex-start",
+    },
+    transactionDate: {
+      marginBottom: "5px",
+    },
+    transactionDescription: {
+      marginBottom: "5px",
+    },
+    transactionAmount: {
+      textAlign: "left",
     },
   },
 };

@@ -31,7 +31,7 @@ const styles = {
     flex: 1,
     padding: "20px",
     maxWidth: "800px",
-    margin: "0 auto", 
+    margin: "0 ", 
     overflow: "auto",
   },
   addBudgetBtn: {
