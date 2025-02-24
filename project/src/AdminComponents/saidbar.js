@@ -11,7 +11,7 @@ const Sidebar = ({ activePage, setActivePage }) => {
  
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 320); 
+      setIsMobile(window.innerWidth <= "412"); 
     };
 
 

@@ -91,7 +91,7 @@ const styles = {
     textAlign: "right",
   },
 
-  "@media (max-width: 320px)": {
+  "@media (max-width: 412px)": {
     container: {
       width: "10%", 
     },
@@ -120,7 +120,7 @@ const styles = {
     },
   },
 
-  "@media (max-width: 320px)": {
+  "@media (max-width: 915px)": {
     accountInfo: {
       
     },
