@@ -37,49 +37,13 @@ const CreateAccount = ({ onCreateAccount }) => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100vh",
-        minHeight: "100vh",
-        padding: "20px",
-        border: "1px solid #ccc",
-        
-       backgroundColor:"#f9f9f9",
-      }}
-    >
-      <div
-        style={{
-          backgroundColor: "#f9f9f9",
-          padding: "20px",
-          borderRadius: "10px",
-          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-          width: "100vh",
-        }}
-      >
+    <div className="create-account-container">
+      <div className="create-account-form">
         <h1>Create Account</h1>
         <p>Create a new client account</p>
-        <form
-          onSubmit={handleSubmit}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "15px",
-            backgroundColor: "#f9f9f9",
-          }}
-        >
-          <label style={{ fontSize: "14px", color: "gray" }}>FULL NAME</label>
+        <form onSubmit={handleSubmit}>
+          <label>FULL NAME</label>
           <input
-            style={{
-              width: "100%",
-              padding: "10px",
-              fontSize: "14px",
-              border: "1px solid #ccc",
-              borderRadius: "5px",
-              boxSizing: "border-box",
-            }}
             type="text"
             name="fullName"
             value={formData.fullName}
@@ -87,36 +51,15 @@ const CreateAccount = ({ onCreateAccount }) => {
             required
           />
 
-          <label style={{ fontSize: "14px", color: "gray" }}>ACCOUNT TYPE</label>
-          <select
-            style={{
-              width: "100%",
-              padding: "10px",
-              fontSize: "14px",
-              border: "1px solid #ccc",
-              borderRadius: "5px",
-              boxSizing: "border-box",
-            }}
-            name="accountType"
-            value={formData.accountType}
-            onChange={handleChange}
-          >
+          <label>ACCOUNT TYPE</label>
+          <select name="accountType" value={formData.accountType} onChange={handleChange}>
             <option value="CHECKING ACCOUNT">CHECKING ACCOUNT</option>
             <option value="SAVINGS ACCOUNT">SAVINGS ACCOUNT</option>
             <option value="CURRENT ACCOUNT">CURRENT ACCOUNT</option>
           </select>
 
-          <label style={{ fontSize: "14px", color: "gray" }}>INITIAL BALANCE</label>
+          <label>INITIAL BALANCE</label>
           <input
-            style={{
-              width: "100%",
-              padding: "10px",
-              fontSize: "14px",
-              border: "1px solid #ccc",
-              borderRadius: "5px",
-              boxSizing: "border-box",
-              font:"caption",
-            }}
             type="number"
             name="balance"
             value={formData.balance}
@@ -124,17 +67,8 @@ const CreateAccount = ({ onCreateAccount }) => {
             required
           />
 
-          <label style={{ fontSize: "14px", color: "gray" }}>EMAIL ADDRESS</label>
+          <label>EMAIL ADDRESS</label>
           <input
-            style={{
-              width: "100%",
-              padding: "10px",
-              fontSize: "14px",
-              border: "1px solid #ccc",
-              borderRadius: "5px",
-              boxSizing: "border-box",
-              font:"caption"
-            }}
             type="email"
             name="email"
             value={formData.email}
@@ -142,16 +76,8 @@ const CreateAccount = ({ onCreateAccount }) => {
             required
           />
 
-          <label style={{ fontSize: "14px", color: "gray" }}>PASSWORD</label>
+          <label>PASSWORD</label>
           <input
-            style={{
-              width: "100%",
-              padding: "10px",
-              fontSize: "14px",
-              border: "1px solid #ccc",
-              borderRadius: "5px",
-              boxSizing: "border-box",
-            }}
             type="password"
             name="password"
             value={formData.password}
@@ -161,56 +87,90 @@ const CreateAccount = ({ onCreateAccount }) => {
 
           {accountNumber && (
             <div>
-              <label style={{ fontSize: "14px", color: "gray" }}>
-                Generated Account Number
-              </label>
-              <input
-                style={{
-                  backgroundColor: "#e65c00",
-                  color: "#fff",
-                  width: "100%",
-                  padding: "10px",
-                  fontSize: "14px",
-                  border: "none",
-                  borderRadius: "5px",
-                  boxSizing: "border-box",
-                  textAlign: "center",
-                }}
-                type="text"
-                value={accountNumber}
-                readOnly
-              />
+              <label>Generated Account Number</label>
+              <input type="text" value={accountNumber} readOnly className="generated-account" />
             </div>
           )}
 
-          <button
-            id="Account"
-            style={{
-              width: "100%",
-              padding: "15px",
-              color: "white",
-              fontSize: "16px",
-              fontWeight: "bold",
-              backgroundColor: "#e65c00",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-              transition: "opacity 0.3s, background-color 0.3s",
-            }}
-            type="submit"
-            onMouseEnter={(e) => {
-              e.target.style.opacity = "1";
-              e.target.style.backgroundColor = "#d45400";
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.opacity = "0.9";
-              e.target.style.backgroundColor = "#e65c00";
-            }}
-          >
-            CREATE ACCOUNT
-          </button>
+          <button type="submit">CREATE ACCOUNT</button>
         </form>
       </div>
+
+      {/* Responsive CSS */}
+      <style>
+        {`
+          .create-account-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 90%;
+            position:absulote;
+            padding: 20px;
+            background-color: #f9f9f9;
+            width: 150%;
+          }
+
+          .create-account-form {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+          }
+
+          form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+          }
+
+          label {
+            font-size: 14px;
+            color: gray;
+            font-weight: bold;
+          }
+
+          input, select {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+          }
+
+          .generated-account {
+            background-color: #e65c00;
+            color: #fff;
+            font-weight: bold;
+            text-align: center;
+          }
+
+          button {
+            width: 100%;
+            padding: 15px;
+            background-color: #e65c00;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+          }
+
+          button:hover {
+            background-color: #d45400;
+          }
+
+          /* Responsive Design */
+          @media (max-width: 600px) {
+            .create-account-form {
+              width: 90%;
+            }
+          }
+        `}
+      </style>
     </div>
   );
 };

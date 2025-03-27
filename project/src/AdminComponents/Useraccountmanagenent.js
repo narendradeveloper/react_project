@@ -3,10 +3,10 @@ import Userhome1 from "./Userhome1";
 import CreateAccount from "./CreateAccount"; 
 
 const AccountManagement = () => {
-  const [accounts, setAccounts] = useState([]); // State for managing accounts
+  const [accounts, setAccounts] = useState([]); 
 
   const handleCreateAccount = (newAccount) => {
-    setAccounts([...accounts, newAccount]); // Add the new account to the list
+    setAccounts([...accounts, newAccount]); 
   };
 
   return (

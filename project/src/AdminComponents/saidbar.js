@@ -5,50 +5,41 @@ import { FaHome, FaMoneyBill, FaExchangeAlt, FaSignOutAlt } from "react-icons/fa
 const Sidebar = ({ activePage, setActivePage }) => {
   const navigate = useNavigate();
   const [hoveredItem, setHoveredItem] = useState(null);
-  const [showLogoutConfirmation, setShowLogoutConfirmation] = useState(false); 
-  const [isMobile, setIsMobile] = useState(false); 
+  const [showLogoutConfirmation, setShowLogoutConfirmation] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768); 
 
- 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= "412"); 
+      setIsMobile(window.innerWidth <= 768); 
     };
-
-
-    handleResize();
     window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const handleNavigation = (page) => {
     if (page === "Logout") {
-      setShowLogoutConfirmation(true); 
+      setShowLogoutConfirmation(true);
     } else {
       setActivePage(page);
     }
   };
 
   const confirmLogout = () => {
-    setShowLogoutConfirmation(false); 
-    navigate("/admin"); 
+    setShowLogoutConfirmation(false);
+    navigate("/admin");
   };
 
   const cancelLogout = () => {
-    setShowLogoutConfirmation(false); 
+    setShowLogoutConfirmation(false);
   };
 
   return (
     <div style={styles.sidebar}>
-      {/* Desktop Sidebar */}
       {!isMobile && (
         <div style={styles.desktopSidebar}>
           <h2 style={styles.sidebarHeading}>Syndicate Bank</h2>
-
           <ul style={styles.sidebarList}>
-            {["Home", "Budget", "Fund Transfer", "Logout"].map((page) => (
+            {menuItems.map(({ page, icon }) => (
               <li
                 key={page}
                 style={{
@@ -61,61 +52,42 @@ const Sidebar = ({ activePage, setActivePage }) => {
                 onMouseEnter={() => setHoveredItem(page)}
                 onMouseLeave={() => setHoveredItem(null)}
               >
-                {page} {/* Text for desktop */}
+                {icon}
+                <span style={{ marginLeft: "10px" }}>{page}</span>
               </li>
             ))}
           </ul>
         </div>
       )}
 
-      {/* Mobile Sidebar */}
       {isMobile && (
         <div style={styles.mobileSidebar}>
           <ul style={styles.sidebarList}>
-            {["Home", "Budget", "Fund Transfer", "Logout"].map((page) => (
+            {menuItems.map(({ page, icon }) => (
               <li
                 key={page}
                 style={{
                   ...styles.sidebarItem,
-                  fontWeight: activePage === page ? "bold" : "normal",
                   backgroundColor: hoveredItem === page ? "#ff8c1a" : "",
                   color: hoveredItem === page ? "white" : "white",
-                  display: "inline-block", 
-                  // textAlign: "start",
-                  borderRadius:"5px",
-                  width: "auto", 
-                  marginLeft:"1px",
                 }}
                 onClick={() => handleNavigation(page)}
                 onMouseEnter={() => setHoveredItem(page)}
                 onMouseLeave={() => setHoveredItem(null)}
               >
-                {page === "Home" ? (
-                  <FaHome size={24} />
-                ) : page === "Budget" ? (
-                  <FaMoneyBill size={24} />
-                ) : page === "Fund Transfer" ? (
-                  <FaExchangeAlt size={24} />
-                ) : page === "Logout" ? (
-                  <FaSignOutAlt size={24} />
-                ) : null}
+                {icon}
               </li>
             ))}
           </ul>
         </div>
       )}
 
-      {/* Confirmation Modal */}
       {showLogoutConfirmation && (
         <div style={styles.modal}>
           <div style={styles.modalContent}>
             <p>Are you sure you want to log out?</p>
-            <button onClick={confirmLogout} style={styles.confirmButton}>
-              Yes
-            </button>
-            <button onClick={cancelLogout} style={styles.cancelButton}>
-              Cancel
-            </button>
+            <button onClick={confirmLogout} style={styles.confirmButton}>Yes</button>
+            <button onClick={cancelLogout} style={styles.cancelButton}>Cancel</button>
           </div>
         </div>
       )}
@@ -123,23 +95,30 @@ const Sidebar = ({ activePage, setActivePage }) => {
   );
 };
 
+const menuItems = [
+  { page: "Home", icon: <FaHome size={24} /> },
+  { page: "Budget", icon: <FaMoneyBill size={24} /> },
+  { page: "Fund Transfer", icon: <FaExchangeAlt size={24} /> },
+  { page: "Logout", icon: <FaSignOutAlt size={24} /> },
+];
+
 const styles = {
   sidebar: {
-    width: "auto",
     background: "#e65c00",
-    color: "black",
+    color: "white",
     padding: "20px",
-    transition: "width 0.3s ease", 
+    transition: "width 0.3s ease",
   },
   sidebarHeading: { marginBottom: "20px" },
   sidebarList: { listStyleType: "none", padding: 0, fontSize: "large" },
   sidebarItem: {
-    margin: "1px 0",
+    display: "flex",
+    alignItems: "center",
+    padding: "10px",
     cursor: "pointer",
-    padding: "8px",
-    transition: "background-color 0.3s", 
+    transition: "background-color 0.3s",
     borderRadius: "10px",
-
+    fontSize: "16px",
   },
   modal: {
     position: "fixed",
@@ -157,7 +136,6 @@ const styles = {
     padding: "20px",
     borderRadius: "8px",
     textAlign: "center",
-
   },
   confirmButton: {
     backgroundColor: "#4CAF50",
@@ -175,16 +153,14 @@ const styles = {
     borderRadius: "5px",
     cursor: "pointer",
   },
-
   desktopSidebar: {
-    width: "auto",
-    
+    width: "250px", 
   },
-
   mobileSidebar: {
-    width: "11px",
-    padding: "10px",
-    textAlign: "start",
+    width: "60px", 
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
 };
 

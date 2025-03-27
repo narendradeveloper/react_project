@@ -35,7 +35,7 @@ const Userhome1 = ({ accounts, setAccounts }) => {
 
   return (
     
-    <div style={{ padding: "20px", width: "50vh", margin: "0 auto" ,textAlign:"center"}}>
+    <div style={{ padding: "20px", width: "50vh", margin: "0 auto" ,textAlign:"start"}}>
       <h1>User Details</h1>
      <p>Create your account</p>
       {isDeleted ? (

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Home, UserPlus, Send, DollarSign, LogOut } from "lucide-react"; 
 import CreateAccount from "./Createacount";
 import Userhome1 from "./uerhome1";
 import UserfundTransfer from "./Userfundtrasfor";
@@ -14,34 +15,31 @@ const Usersidebar = () => {
 
   const [activePage, setActivePage] = useState("home");
   const [activeButton, setActiveButton] = useState("");
-  const [showLogoutConfirmation, setShowLogoutConfirmation] = useState(false); 
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [showLogoutConfirmation, setShowLogoutConfirmation] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     localStorage.setItem("accounts", JSON.stringify(accounts));
   }, [accounts]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const handleCreateAccount = (newAccount) => {
-    setAccounts((prevAccounts) => {
-      const updatedAccounts = [...prevAccounts, newAccount];
-      return updatedAccounts;
-    });
+    setAccounts((prevAccounts) => [...prevAccounts, newAccount]);
     setActivePage("home");
     setActiveButton("home");
   };
 
-  const handleLogout = () => {
-    setShowLogoutConfirmation(true); 
-  };
-
-  const confirmLogout = () => {
-    navigate("/admin"); 
-    setShowLogoutConfirmation(false); 
-  };
-
-  const cancelLogout = () => {
-    setShowLogoutConfirmation(false); 
-  };
+  const handleLogout = () => setShowLogoutConfirmation(true);
+  const confirmLogout = () => navigate("/admin");
+  const cancelLogout = () => setShowLogoutConfirmation(false);
 
   const renderContent = () => {
     switch (activePage) {
@@ -67,84 +65,54 @@ const Usersidebar = () => {
 
   return (
     <div style={{ display: "flex" }}>
-      <div
-        style={{
-          width: "250px",
-          height: "100vh",
-          backgroundColor: "#e65c00",
-          position: "fixed",
-          overflowY: "auto",
-          paddingTop: "10px",
-        }}
-      >
-        <h2 style={{ paddingLeft: "10px", marginTop: "5vh" }}>Syndicate Bank</h2>
+      {/* Sidebar */}
+      <div style={{
+        width: isMobile ? "60px" : "250px",
+        height: "100vh",
+        backgroundColor: "#e65c00",
+        position: "fixed",
+        overflowY: "auto",
+        paddingTop: "10px",
+        transition: "width 0.3s ease-in-out",
+      }}>
+        {!isMobile && (
+          <h2 style={{ paddingLeft: "20px", marginTop: "5vh", color: "white" }}>
+            Syndicate Bank
+          </h2>
+        )}
         <div>
-          <div
-            onClick={() => handleButtonClick("home")}
-            style={{
-              ...styles.sidebarItem,
-              backgroundColor: activeButton === "home" ? "#ff8c1a" : "transparent",
-              color: activeButton === "home" ? "white" : "black",
-            }}
-          >
-            Home
-          </div>
-          <div
-            onClick={() => handleButtonClick("createAccount")}
-            style={{
-              ...styles.sidebarItem,
-              backgroundColor: activeButton === "createAccount" ? "#ff8c1a" : "transparent",
-              color: activeButton === "createAccount" ? "white" : "black",
-            }}
-          >
-            Create Account
-          </div>
-          <div
-            onClick={() => handleButtonClick("fundTransfer")}
-            style={{
-              ...styles.sidebarItem,
-              backgroundColor: activeButton === "fundTransfer" ? "#ff8c1a" : "transparent",
-              color: activeButton === "fundTransfer" ? "white" : "black",
-            }}
-          >
-            Fund Transfer
-          </div>
-          <div
-            onClick={() => handleButtonClick("deposit")}
-            style={{
-              ...styles.sidebarItem,
-              backgroundColor: activeButton === "deposit" ? "#ff8c1a" : "transparent",
-              color: activeButton === "deposit" ? "white" : "black",
-            }}
-          >
-            Deposit
-          </div>
-          <div
-            onClick={() => handleButtonClick("withdraw")}
-            style={{
-              ...styles.sidebarItem,
-              backgroundColor: activeButton === "withdraw" ? "#ff8c1a" : "transparent",
-              color: activeButton === "withdraw" ? "white" : "black",
-            }}
-          >
-            Withdraw
-          </div>
-          <div
-            onClick={handleLogout}
-            style={{
-              ...styles.sidebarItem,
-              backgroundColor: activeButton === "logout" ? "#ff8c1a" : "transparent",
-              color: activeButton === "logout" ? "white" : "black",
-            }}
-          >
-            Logout
+          {menuItems.map(({ page, icon, text }) => (
+            <div
+              key={page}
+              onClick={() => handleButtonClick(page)}
+              style={{
+                ...styles.sidebarItem,
+                backgroundColor: activeButton === page ? "#ff8c1a" : "transparent",
+                color: "white",
+                flexDirection: isMobile ? "column" : "row",
+                justifyContent: "flex-start",
+                padding: isMobile ? "10px 0" : "10px 15px",
+              }}
+            >
+              <div style={{ width: "30px", display: "flex", justifyContent: "center" }}>
+                {icon}
+              </div>
+              {!isMobile && <span style={{ marginLeft: "15px" }}>{text}</span>}
+            </div>
+          ))}
+          <div onClick={handleLogout} style={styles.sidebarItem}>
+            <LogOut size={24} color="white" />
+            {!isMobile && <span style={{ marginLeft: "15px" }}>Logout</span>}
           </div>
         </div>
       </div>
-      <div style={{ marginLeft: "250px", padding: "20px" }}>
+
+      {/* Main Content */}
+      <div style={{ marginLeft: isMobile ? "60px" : "250px", padding: "20px", width: "100%" }}>
         {renderContent()}
       </div>
 
+      {/* Logout Confirmation Modal */}
       {showLogoutConfirmation && (
         <div style={styles.modal}>
           <div style={styles.modalContent}>
@@ -158,16 +126,25 @@ const Usersidebar = () => {
   );
 };
 
+const menuItems = [
+  { page: "home", icon: <Home size={24} color="white" />, text: "Home" },
+  { page: "createAccount", icon: <UserPlus size={24} color="white" />, text: "Create Account" },
+  { page: "fundTransfer", icon: <Send size={24} color="white" />, text: "Fund Transfer" },
+  { page: "deposit", icon: <DollarSign size={24} color="white" />, text: "Deposit" },
+  { page: "withdraw", icon: <DollarSign size={24} color="white" />, text: "Withdraw" },
+];
+
 const styles = {
   sidebarItem: {
     cursor: "pointer",
-    padding: "8px",
-    paddingLeft: "5vh",
+    padding: "12px",
+    display: "flex",
+    alignItems: "center",
     marginBottom: "10px",
     transition: "all 0.3s",
     borderRadius: "5px",
-    font: "caption",
-    backgroundColor: "transparent",
+    fontSize: "16px",
+    fontWeight: "bold",
   },
   modal: {
     position: "fixed",
