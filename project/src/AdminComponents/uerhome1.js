@@ -12,8 +12,12 @@ const Userhome1 = ({ accounts, setAccounts }) => {
 
   const handleEditChange = (e) => {
     const { name, value } = e.target;
-    setEditedAccount({ ...editedAccount, [name]: value });
+    setEditedAccount({
+      ...editedAccount,
+      [name]: name === "balance" ? Number(value) : value,
+    });
   };
+  
 
   const handleSaveClick = () => {
     if (isEditing !== null) {
@@ -35,9 +39,10 @@ const Userhome1 = ({ accounts, setAccounts }) => {
 
   return (
     
-    <div style={{ padding: "20px", width: "50vh", margin: "0 auto" ,textAlign:"start"}}>
+    <div style={{ margin: "0 auto" ,textAlign:"start"}}>
       <h1>User Details</h1>
      <p>Create your account</p>
+     
       {isDeleted ? (
         <p style={{ color: "", textAlign: "center" }}>Account deleted</p>
       ) : accounts.length > 0 ? (
@@ -50,8 +55,11 @@ const Userhome1 = ({ accounts, setAccounts }) => {
               border: "1px solid #ccc",
               borderRadius: "8px",
               backgroundColor: "#f9f9f9",
+              width: "260px",
             }}
           >
+
+            
             {isEditing === index ? (
               <div>
                 <label>Full Name:</label>
@@ -78,37 +86,15 @@ const Userhome1 = ({ accounts, setAccounts }) => {
                   onChange={handleEditChange}
                   style={{ display: "block", marginBottom: "10px", width: "100%" }}
                 />
-                <button
-                  onClick={handleSaveClick}
-                  style={{
-                    marginRight: "10px",
-                    backgroundColor: "#4CAF50",
-                    color: "white",
-                    padding: "5px 10px",
-                    border: "none",
-                    borderRadius: "4px",
-                  }}
-                >
-                  Save
-                </button>
-                <button
-                  onClick={() => setIsEditing(null)}
-                  style={{
-                    backgroundColor: "#f44336",
-                    color: "white",
-                    padding: "15px 40px",
-                    border: "none",
-                    borderRadius: "4px",
-                  }}
-                >
-                </button>
+      
+                  
               </div>
             ) : (
               <div>
                 <h2>{account.fullName}</h2>
                 <p> {account.accountType}</p>
-                <p>{account.accountNumber}</p>
-                <h3>{account.balance}</h3>
+                <p>Account No: {account.accountNumber}</p>
+                <h4>Rs:{account.balance}</h4>
                
                 
               </div>

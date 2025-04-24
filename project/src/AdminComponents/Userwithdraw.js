@@ -5,7 +5,7 @@ const Userwithdraw = ({ accounts = [], setAccounts }) => {
   const [withdrawAmount, setWithdrawAmount] = useState("");
   const [message, setMessage] = useState("");
   const [currentBalance, setCurrentBalance] = useState("");
-  const [isHovered, setIsHovered] = useState(false); 
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleAccountChange = (e) => {
     const index = e.target.value;
@@ -34,38 +34,48 @@ const Userwithdraw = ({ accounts = [], setAccounts }) => {
 
     selectedAccount.balance -= parseFloat(withdrawAmount);
     setAccounts(updatedAccounts);
-    setCurrentBalance(selectedAccount.balance); 
+    setCurrentBalance(selectedAccount.balance);
 
     setMessage(`Withdrawal of ${withdrawAmount} was successful for ${selectedAccount.fullName}.`);
-    setWithdrawAmount(""); 
+    setWithdrawAmount("");
   };
 
   const buttonStyle = {
     height: "7vh",
     marginTop: "10px",
-    width: "105vh",
-    backgroundColor: isHovered ? "#e65c00" : "#e65c00", 
+    width: "100%",
+    backgroundColor: isHovered ? "#e65c00" : "#e65c00",
     color: "white",
     border: "none",
     borderRadius: "5px",
     cursor: "pointer",
-    opacity: isHovered ? 1 : 0.6, 
-    transition: "background-color 0.3s, opacity 0.3s", 
+    opacity: isHovered ? 1 : 0.8,
+    transition: "background-color 0.3s, opacity 0.3s",
   };
 
   return (
-    <div style={{ width: "110vh", paddingLeft: "25px", backgroundColor:"#f9f9f9",border: "1px solid #ccc",}}>
-      <h1>Withdraw</h1>
+    <div
+      style={{
+        padding: "20px",
+        maxWidth: "600px",
+        width: "100%",
+        backgroundColor: "#f9f9f9",
+        border: "1px solid #ccc",
+        boxSizing: "border-box",
+      }}
+    >
+      <h1 style={{ textAlign: "center" }}>Withdraw</h1>
+
       {message && (
         <div
           style={{
             color: "green",
-            backgroundColor:"gray",
             fontWeight: "bold",
             textAlign: "center",
             padding: "10px",
             borderRadius: "5px",
-            backgroundColor: "#f9f9f9",
+            backgroundColor: "#FAEBD7",
+            marginBottom: "15px",
           }}
         >
           {message}
@@ -74,13 +84,16 @@ const Userwithdraw = ({ accounts = [], setAccounts }) => {
 
       <label style={{ font: "caption", color: "gray" }}>SELECT ACCOUNT</label>
       <select
-        style={{ height: "7vh", width: "95%", marginBottom: "10px", font: "caption" }}
+        style={{
+          height: "7vh",
+          width: "100%",
+          marginBottom: "10px",
+          font: "caption",
+        }}
         value={selectedAccountIndex}
         onChange={handleAccountChange}
       >
-        <option style={{ font: "caption", color: "gray" }} value="">
-          Select an Account
-        </option>
+        <option value="">Select an Account</option>
         {accounts.length > 0 ? (
           accounts.map((account, index) => (
             <option key={index} value={index}>
@@ -98,7 +111,12 @@ const Userwithdraw = ({ accounts = [], setAccounts }) => {
         <div>
           <label>Current Balance</label>
           <input
-            style={{ height: "6vh", marginBottom: "10px", width: "94%", font: "caption" }}
+            style={{
+              height: "6vh",
+              marginBottom: "10px",
+              width: "100%",
+              font: "caption",
+            }}
             type="text"
             value={currentBalance}
             readOnly
@@ -106,9 +124,14 @@ const Userwithdraw = ({ accounts = [], setAccounts }) => {
         </div>
       )}
 
-      <label style={{ font: "caption", color: "gray" , width: "94%",}}>Withdrawal Amount</label>
+      <label style={{ font: "caption", color: "gray" }}>Withdrawal Amount</label>
       <input
-        style={{ height: "6vh", marginBottom: "10px", width: "94%", font: "caption" }}
+        style={{
+          height: "6vh",
+          marginBottom: "10px",
+          width: "100%",
+          font: "caption",
+        }}
         type="number"
         value={withdrawAmount}
         onChange={(e) => setWithdrawAmount(e.target.value)}
@@ -117,8 +140,8 @@ const Userwithdraw = ({ accounts = [], setAccounts }) => {
 
       <button
         style={buttonStyle}
-        onMouseEnter={() => setIsHovered(true)} 
-        onMouseLeave={() => setIsHovered(false)} 
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         onClick={handleWithdraw}
       >
         WITHDRAW

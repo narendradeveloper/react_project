@@ -35,20 +35,24 @@ const Userdeposit = ({ accounts, setAccounts }) => {
   };
 
   const handleMouseEnter = () => {
-    setButtonStyles({
-      backgroundColor: "#e65c00", 
-    });
+    setButtonStyles({ backgroundColor: "#e65c00" });
   };
 
   const handleMouseLeave = () => {
-    setButtonStyles({
-      backgroundColor: "#e65c00",
-      opacity: 0.8, 
-    });
+    setButtonStyles({ backgroundColor: "#e65c00", opacity: 0.8 });
   };
 
   return (
-    <div style={{ width: "110vh",height:"auto", padding: "0 10%", boxSizing: "border-box",backgroundColor: "#f9f9f9"  , border: "1px solid #ccc" }}>
+    <div
+      style={{
+        padding: "20px",
+        maxWidth: "600px",
+        width: "100%",
+        backgroundColor: "#f9f9f9",
+        border: "1px solid #ccc",
+        boxSizing: "border-box",
+      }}
+    >
       <h1 style={{ textAlign: "center" }}>Deposit</h1>
 
       {message && (
@@ -61,6 +65,8 @@ const Userdeposit = ({ accounts, setAccounts }) => {
             borderRadius: "5px",
             backgroundColor: "#FAEBD7",
             marginBottom: "20px",
+            width: "100%",
+            boxSizing: "border-box",
           }}
         >
           {message}
@@ -72,16 +78,14 @@ const Userdeposit = ({ accounts, setAccounts }) => {
       <select
         style={{
           height: "7vh",
-          width: "90vh",
+          width: "100%",
           marginBottom: "10px",
           font: "caption",
         }}
         value={selectedAccountIndex}
         onChange={(e) => setSelectedAccountIndex(e.target.value)}
       >
-        <option style={{ font: "caption" }} value="">
-          Select an Account
-        </option>
+        <option value="">Select an Account</option>
         {accounts.map((account, index) => (
           <option key={index} value={index}>
             {account.fullName}
@@ -97,7 +101,7 @@ const Userdeposit = ({ accounts, setAccounts }) => {
             style={{
               height: "6vh",
               marginBottom: "10px",
-              width: "90vh",
+              width: "100%",
               font: "caption",
             }}
             type="text"
@@ -106,14 +110,14 @@ const Userdeposit = ({ accounts, setAccounts }) => {
           />
         </div>
       )}
-      <br />
+
       <label style={{ font: "caption", color: "gray" }}>Deposit Amount</label>
       <br />
       <input
         style={{
           height: "6vh",
           marginBottom: "10px",
-          width: "90vh",
+          width: "100%",
           font: "caption",
         }}
         type="number"
@@ -125,13 +129,14 @@ const Userdeposit = ({ accounts, setAccounts }) => {
         style={{
           height: "7vh",
           marginTop: "10px",
-          width: "90vh",
+          width: "100%",
           backgroundColor: buttonStyles.backgroundColor,
           color: "white",
           border: "none",
           borderRadius: "5px",
           cursor: "pointer",
           opacity: buttonStyles.opacity,
+          transition: "opacity 0.3s",
         }}
         onClick={handleDeposit}
         onMouseEnter={handleMouseEnter}

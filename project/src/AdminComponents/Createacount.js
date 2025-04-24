@@ -100,14 +100,14 @@ const CreateAccount = ({ onCreateAccount }) => {
       <style>
         {`
           .create-account-container {
-            display: flex;
+            // display: flex;
             justify-content: center;
             align-items: center;
             height: 90%;
             position:absulote;
             padding: 20px;
             background-color: #f9f9f9;
-            width: 150%;
+            // width: 150%;
           }
 
           .create-account-form {
