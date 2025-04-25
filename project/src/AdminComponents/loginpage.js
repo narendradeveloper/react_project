@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import img from "./Image.png";
 import bank from "./bank.png";
+import { BsJustify } from "react-icons/bs";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -70,7 +71,7 @@ const Login = () => {
       backgroundRepeat: "no-repeat",
     },
     form: {
-      width:  "160px",
+      width:  "190px",
 height:"400px",
       padding:  "40px",
       paddingRight:  "90px",
@@ -86,7 +87,7 @@ height:"400px",
     },
     title: {
       // textAlign: "center",
-      width:"110px",
+      // width:"110px",
       marginBottom: "10px",
       color: "white",
     },
@@ -96,7 +97,7 @@ height:"400px",
       fontWeight: "bold",
     },
     input: {
-      width: "auto",
+      width: "120%",
       padding: "10px",
       marginBottom: "15px",
       border: "1px solid #ccc",
@@ -104,22 +105,26 @@ height:"400px",
       font: "caption",
     },
     gest: {
-      backgroundColor: "#4CAF50",
-      width: "40%",
+      backgroundColor: "#e95c15",
+      width: "100%",
+      display:"flex",
       border: "none",
       borderRadius: "5px",
       color: "white",
       cursor: "pointer",
+      marginLeft:"30px"
       
     },
     dp: {
       display: "flex",
-      gap: "55px",
+      gap: "3px",
+      // width:"100%",
+      justifycontente:"speace-between",
     },
     submitButton: {
-      width: "40%",
+      width: "200%",
       padding: "10px",
-      backgroundColor: "#4CAF50",
+      backgroundColor: "#e95c15",
       color: "white",
       border: "none",
       borderRadius: "5px",
@@ -173,16 +178,18 @@ height:"400px",
             <input
               type="submit"
               id="sub"
-              value="LOGIN"
+              value=" USER LOGIN"
               style={styles.submitButton}
             />
-            <button
+            
+            <input
               type="button" 
+              value=" USER LOGIN"
               style={styles.gest}
               onClick={handleGuestLogin} 
-            >
-              GUEST LOGIN
-            </button>
+            />
+              {/* GUEST LOGIN */}
+            {/* </button> */}
           </div>
         </form>
       </div>
